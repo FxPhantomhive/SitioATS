@@ -5326,13 +5326,13 @@ body.u28disable-scroll {
 
 .u28w1 .u28b1 {
     padding: 11px 20px;
-    background: #383330;
-    border-radius: 4px;
+    background: #3e6a3f;
+    border-radius: 3em;
     color: #fcfbfa;
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
-    transition: background-color .2s ease
+    transition: background-color .2s ease;
 }
 
 .u28w1 .u28b1:focus {
@@ -6992,7 +6992,9 @@ b .u28back {
         margin: 0 5px 0 0
     }
     .u28s3 {
-        display: none !important
+        display: block !important;
+        min-height: 2.3rem;
+        padding: 1rem 2rem 1rem;
     }
     .u28nav {
         background-repeat: no-repeat;

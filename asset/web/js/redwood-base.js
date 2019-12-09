@@ -24,7 +24,7 @@ Copyright Â© 2011-2016 Caleb Troughton
 Licensed under the MIT license.
 https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 */
-! function () {
+! function() {
     "use strict";
 
     function t(o) {
@@ -38,37 +38,37 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
     }
     var e = 0,
         i = {};
-    t.prototype.queueTrigger = function (t) {
+    t.prototype.queueTrigger = function(t) {
         this.group.queueTrigger(this, t)
-    }, t.prototype.trigger = function (t) {
+    }, t.prototype.trigger = function(t) {
         this.enabled && this.callback && this.callback.apply(this, t)
-    }, t.prototype.destroy = function () {
+    }, t.prototype.destroy = function() {
         this.context.remove(this), this.group.remove(this), delete i[this.key]
-    }, t.prototype.disable = function () {
+    }, t.prototype.disable = function() {
         return this.enabled = !1, this
-    }, t.prototype.enable = function () {
+    }, t.prototype.enable = function() {
         return this.context.refresh(), this.enabled = !0, this
-    }, t.prototype.next = function () {
+    }, t.prototype.next = function() {
         return this.group.next(this)
-    }, t.prototype.previous = function () {
+    }, t.prototype.previous = function() {
         return this.group.previous(this)
-    }, t.invokeAll = function (t) {
+    }, t.invokeAll = function(t) {
         var e = [];
         for (var o in i) e.push(i[o]);
         for (var n = 0, r = e.length; r > n; n++) e[n][t]()
-    }, t.destroyAll = function () {
+    }, t.destroyAll = function() {
         t.invokeAll("destroy")
-    }, t.disableAll = function () {
+    }, t.disableAll = function() {
         t.invokeAll("disable")
-    }, t.enableAll = function () {
+    }, t.enableAll = function() {
         t.Context.refreshAll();
         for (var e in i) i[e].enabled = !0;
         return this
-    }, t.refreshAll = function () {
+    }, t.refreshAll = function() {
         t.Context.refreshAll()
-    }, t.viewportHeight = function () {
+    }, t.viewportHeight = function() {
         return window.innerHeight || document.documentElement.clientHeight
-    }, t.viewportWidth = function () {
+    }, t.viewportWidth = function() {
         return document.documentElement.clientWidth
     }, t.adapters = [], t.defaults = {
         context: window,
@@ -78,15 +78,15 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
         horizontal: !1,
         offset: 0
     }, t.offsetAliases = {
-        "bottom-in-view": function () {
+        "bottom-in-view": function() {
             return this.context.innerHeight() - this.adapter.outerHeight()
         },
-        "right-in-view": function () {
+        "right-in-view": function() {
             return this.context.innerWidth() - this.adapter.outerWidth()
         }
     }, window.Waypoint = t
 }(),
-function () {
+function() {
     "use strict";
 
     function t(t) {
@@ -106,33 +106,33 @@ function () {
         o = {},
         n = window.Waypoint,
         r = window.onload;
-    e.prototype.add = function (t) {
+    e.prototype.add = function(t) {
         var e = t.options.horizontal ? "horizontal" : "vertical";
         this.waypoints[e][t.key] = t, this.refresh()
-    }, e.prototype.checkEmpty = function () {
+    }, e.prototype.checkEmpty = function() {
         var t = this.Adapter.isEmptyObject(this.waypoints.horizontal),
             e = this.Adapter.isEmptyObject(this.waypoints.vertical),
             i = this.element == this.element.window;
         t && e && !i && (this.adapter.off(".waypoints"), delete o[this.key])
-    }, e.prototype.createThrottledResizeHandler = function () {
+    }, e.prototype.createThrottledResizeHandler = function() {
         function t() {
             e.handleResize(), e.didResize = !1
         }
         var e = this;
-        this.adapter.on("resize.waypoints", function () {
+        this.adapter.on("resize.waypoints", function() {
             e.didResize || (e.didResize = !0, n.requestAnimationFrame(t))
         })
-    }, e.prototype.createThrottledScrollHandler = function () {
+    }, e.prototype.createThrottledScrollHandler = function() {
         function t() {
             e.handleScroll(), e.didScroll = !1
         }
         var e = this;
-        this.adapter.on("scroll.waypoints", function () {
+        this.adapter.on("scroll.waypoints", function() {
             (!e.didScroll || n.isTouch) && (e.didScroll = !0, n.requestAnimationFrame(t))
         })
-    }, e.prototype.handleResize = function () {
+    }, e.prototype.handleResize = function() {
         n.Context.refreshAll()
-    }, e.prototype.handleScroll = function () {
+    }, e.prototype.handleScroll = function() {
         var t = {},
             e = {
                 horizontal: {
@@ -168,18 +168,18 @@ function () {
             x: e.horizontal.newScroll,
             y: e.vertical.newScroll
         }
-    }, e.prototype.innerHeight = function () {
+    }, e.prototype.innerHeight = function() {
         return this.element == this.element.window ? n.viewportHeight() : this.adapter.innerHeight()
-    }, e.prototype.remove = function (t) {
+    }, e.prototype.remove = function(t) {
         delete this.waypoints[t.axis][t.key], this.checkEmpty()
-    }, e.prototype.innerWidth = function () {
+    }, e.prototype.innerWidth = function() {
         return this.element == this.element.window ? n.viewportWidth() : this.adapter.innerWidth()
-    }, e.prototype.destroy = function () {
+    }, e.prototype.destroy = function() {
         var t = [];
         for (var e in this.waypoints)
             for (var i in this.waypoints[e]) t.push(this.waypoints[e][i]);
         for (var o = 0, n = t.length; n > o; o++) t[o].destroy()
-    }, e.prototype.refresh = function () {
+    }, e.prototype.refresh = function() {
         var t, e = this.element == this.element.window,
             i = e ? void 0 : this.adapter.offset(),
             o = {};
@@ -214,23 +214,23 @@ function () {
                 d.element !== d.element.window && (y = d.adapter.offset()[s.offsetProp]), "function" == typeof f ? f = f.apply(d) : "string" == typeof f && (f = parseFloat(f), d.options.offset.indexOf("%") > -1 && (f = Math.ceil(s.contextDimension * f / 100))), l = s.contextScroll - s.contextOffset, d.triggerPoint = Math.floor(y + l - f), h = w < s.oldScroll, p = d.triggerPoint >= s.oldScroll, u = h && p, c = !h && !p, !g && u ? (d.queueTrigger(s.backward), o[d.group.id] = d.group) : !g && c ? (d.queueTrigger(s.forward), o[d.group.id] = d.group) : g && s.oldScroll >= d.triggerPoint && (d.queueTrigger(s.forward), o[d.group.id] = d.group)
             }
         }
-        return n.requestAnimationFrame(function () {
+        return n.requestAnimationFrame(function() {
             for (var t in o) o[t].flushTriggers()
         }), this
-    }, e.findOrCreateByElement = function (t) {
+    }, e.findOrCreateByElement = function(t) {
         return e.findByElement(t) || new e(t)
-    }, e.refreshAll = function () {
+    }, e.refreshAll = function() {
         for (var t in o) o[t].refresh()
-    }, e.findByElement = function (t) {
+    }, e.findByElement = function(t) {
         return o[t.waypointContextKey]
-    }, window.onload = function () {
+    }, window.onload = function() {
         r && r(), e.refreshAll()
-    }, n.requestAnimationFrame = function (e) {
+    }, n.requestAnimationFrame = function(e) {
         var i = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || t;
         i.call(window, e)
     }, n.Context = e
 }(),
-function () {
+function() {
     "use strict";
 
     function t(t, e) {
@@ -249,16 +249,16 @@ function () {
             horizontal: {}
         },
         n = window.Waypoint;
-    i.prototype.add = function (t) {
+    i.prototype.add = function(t) {
         this.waypoints.push(t)
-    }, i.prototype.clearTriggerQueues = function () {
+    }, i.prototype.clearTriggerQueues = function() {
         this.triggerQueues = {
             up: [],
             down: [],
             left: [],
             right: []
         }
-    }, i.prototype.flushTriggers = function () {
+    }, i.prototype.flushTriggers = function() {
         for (var i in this.triggerQueues) {
             var o = this.triggerQueues[i],
                 n = "up" === i || "left" === i;
@@ -269,29 +269,29 @@ function () {
             }
         }
         this.clearTriggerQueues()
-    }, i.prototype.next = function (e) {
+    }, i.prototype.next = function(e) {
         this.waypoints.sort(t);
         var i = n.Adapter.inArray(e, this.waypoints),
             o = i === this.waypoints.length - 1;
         return o ? null : this.waypoints[i + 1]
-    }, i.prototype.previous = function (e) {
+    }, i.prototype.previous = function(e) {
         this.waypoints.sort(t);
         var i = n.Adapter.inArray(e, this.waypoints);
         return i ? this.waypoints[i - 1] : null
-    }, i.prototype.queueTrigger = function (t, e) {
+    }, i.prototype.queueTrigger = function(t, e) {
         this.triggerQueues[e].push(t)
-    }, i.prototype.remove = function (t) {
+    }, i.prototype.remove = function(t) {
         var e = n.Adapter.inArray(t, this.waypoints);
         e > -1 && this.waypoints.splice(e, 1)
-    }, i.prototype.first = function () {
+    }, i.prototype.first = function() {
         return this.waypoints[0]
-    }, i.prototype.last = function () {
+    }, i.prototype.last = function() {
         return this.waypoints[this.waypoints.length - 1]
-    }, i.findOrCreate = function (t) {
+    }, i.findOrCreate = function(t) {
         return o[t.axis][t.name] || new i(t)
     }, n.Group = i
 }(),
-function () {
+function() {
     "use strict";
 
     function t(t) {
@@ -299,26 +299,26 @@ function () {
     }
     var e = window.jQuery,
         i = window.Waypoint;
-    e.each(["innerHeight", "innerWidth", "off", "offset", "on", "outerHeight", "outerWidth", "scrollLeft", "scrollTop"], function (e, i) {
-        t.prototype[i] = function () {
+    e.each(["innerHeight", "innerWidth", "off", "offset", "on", "outerHeight", "outerWidth", "scrollLeft", "scrollTop"], function(e, i) {
+        t.prototype[i] = function() {
             var t = Array.prototype.slice.call(arguments);
             return this.$element[i].apply(this.$element, t)
         }
-    }), e.each(["extend", "inArray", "isEmptyObject"], function (i, o) {
+    }), e.each(["extend", "inArray", "isEmptyObject"], function(i, o) {
         t[o] = e[o]
     }), i.adapters.push({
         name: "jquery",
         Adapter: t
     }), i.Adapter = t
 }(),
-function () {
+function() {
     "use strict";
 
     function t(t) {
-        return function () {
+        return function() {
             var i = [],
                 o = arguments[0];
-            return t.isFunction(arguments[0]) && (o = t.extend({}, arguments[1]), o.handler = arguments[0]), this.each(function () {
+            return t.isFunction(arguments[0]) && (o = t.extend({}, arguments[1]), o.handler = arguments[0]), this.each(function() {
                 var n = t.extend({}, o, {
                     element: this
                 });
@@ -331,9 +331,9 @@ function () {
 }();
 
 /*! GENERIC - OBGIMG */
-! function ($) {
+! function($) {
     "use strict";
-    $.fn.bgimg = function () {
+    $.fn.bgimg = function() {
         var a = $(this),
             b = "",
             c = "",
@@ -347,13 +347,13 @@ function () {
             f = f.replace(/[{)}]/g, "%29");
             b = "url(" + f + ")";
             if (f.match(/bg[nwesrpt]+-/g)) {
-                c = function (a) {
+                c = function(a) {
                     return /bgnw-/.test(a) && "0 0" || /bgne-/.test(a) && "100% 0" || /bgsw-/.test(a) && "0 100%" || /bgse-/.test(a) && "100% 100%" || /bgn-/.test(a) && "50% 0" || /bgs-/.test(a) && "50% 100%" || /bge-/.test(a) && "100% 50%" || /bgw-/.test(a) && "0 50%" || /bgrpt-/.test(a) && "0 0" || ""
                 };
-                d = function (a) {
+                d = function(a) {
                     return /bgrpt-/.test(a) && "auto " || "cover"
                 };
-                e = function (a) {
+                e = function(a) {
                     return /bgrpt-/.test(a) && "repeat" || "no-repeat"
                 };
                 a.css({
@@ -374,7 +374,7 @@ function () {
 jQuery.event.special.esckeydown = {
     delegateType: "keydown",
     bindType: "keydown",
-    handle: function (a) {
+    handle: function(a) {
         var b = a.handleObj,
             c = a.keyCode,
             d = null;
@@ -388,17 +388,17 @@ jQuery.event.special.esckeydown = {
 };
 
 /*! ORACLE - PERFORMANCE */
-var OraclePerformance = function (a) {
+var OraclePerformance = function(a) {
         "use strict";
         var b = {},
             c = "performance" in a && "timing" in a.performance,
             d = "performance" in a && "mark" in a.performance && "measure" in a.performance,
             e = !1,
-            f = function (a) {
+            f = function(a) {
                 return +(Math.round(a / 1e3 + "e+2") + "e-2")
             },
-            g = function (b, c) {
-                return !(!Array.isArray(b) || !b.length) && b.reduce(function (b, d) {
+            g = function(b, c) {
+                return !(!Array.isArray(b) || !b.length) && b.reduce(function(b, d) {
                     var e = /https?:\/\//.test(d.name),
                         f = e ? /https?:\/\/(.*?)\//.exec(d.name)[1] : null,
                         g = e ? d.name.slice(d.name.lastIndexOf("/") + 1).split("?")[0] : d.name;
@@ -413,7 +413,7 @@ var OraclePerformance = function (a) {
                     return b
                 }, {})
             },
-            h = function (b, c, d) {
+            h = function(b, c, d) {
                 var e;
                 /\.css$/.test(c) && (/-base(-styles)?\.css$/.test(c) ? b["base-css"] = d.duration : b["lib-css"] = d.duration);
                 if (/\.js$/.test(c))
@@ -426,7 +426,7 @@ var OraclePerformance = function (a) {
                 }
                 return b
             },
-            i = function (a) {
+            i = function(a) {
                 var b = "-",
                     c = "_",
                     d = "~",
@@ -453,32 +453,32 @@ var OraclePerformance = function (a) {
                         name: "t5",
                         range: [10, Number.POSITIVE_INFINITY]
                     }],
-                    i = function (a) {
-                        return h.filter(function (b) {
+                    i = function(a) {
+                        return h.filter(function(b) {
                             return a >= b.range[0] && a <= b.range[1]
                         }).shift().name
                     },
-                    j = function (a) {
-                        return function (b) {
+                    j = function(a) {
+                        return function(b) {
                             var c = new RegExp("-", "g");
                             return "codebase" === b ? a[b] && a[b].replace(c, "_") : a[b] ? i(f(a[b])) : "na"
                         }
                     },
-                    k = function (a) {
-                        return a.map(function (a) {
+                    k = function(a) {
+                        return a.map(function(a) {
                             return "na"
                         }).join("~")
                     },
                     l = {
-                        page: function (a) {
+                        page: function(a) {
                             var b = ["domInteractive", "domContentLoaded", "domComplete"];
                             return a ? b.map(j(a)).join("~") : k(b)
                         },
-                        paint: function (a) {
+                        paint: function(a) {
                             var b = ["first-paint", "first-contentful-paint", "first-styled-body-paint", "first-hero-image-paint"];
                             return a ? b.map(j(a)).join("~") : k(b)
                         },
-                        resource: function (a) {
+                        resource: function(a) {
                             var b = ["codebase", "base-css", "lib-css", "jquery", "base-js", "lib-js"];
                             return a ? b.map(j(a)).join("~") : k(b)
                         },
@@ -490,10 +490,10 @@ var OraclePerformance = function (a) {
                     prop46: l.resource(a.resource.WS)
                 }
             },
-            j = function (b) {
+            j = function(b) {
                 return d && a.performance.mark(b)
             },
-            k = function (e) {
+            k = function(e) {
                 switch (e) {
                     case "page":
                         return {
@@ -520,7 +520,7 @@ var OraclePerformance = function (a) {
                         })
                 }
             },
-            l = function () {
+            l = function() {
                 var b = a.performance.timing;
                 return {
                     domInteractive: b.domInteractive - b.domLoading,
@@ -528,8 +528,8 @@ var OraclePerformance = function (a) {
                     domComplete: b.domComplete - b.domLoading
                 }
             },
-            m = function () {
-                return g(a.performance.getEntriesByType("resource"), function (a) {
+            m = function() {
+                return g(a.performance.getEntriesByType("resource"), function(a) {
                     return {
                         startTime: a.startTime,
                         size: a.decodedBodySize,
@@ -538,7 +538,7 @@ var OraclePerformance = function (a) {
                     }
                 })
             },
-            n = function () {
+            n = function() {
                 var b = a.performance.getEntriesByType("paint"),
                     c = o(),
                     d = p();
@@ -546,9 +546,9 @@ var OraclePerformance = function (a) {
                 d && b.push(d);
                 return g(b)
             },
-            o = function () {
+            o = function() {
                 var b = document.querySelector('head link[href$="-base.css"]'),
-                    c = a.performance.getEntriesByType("resource").filter(function (a) {
+                    c = a.performance.getEntriesByType("resource").filter(function(a) {
                         return b && a.name === b.href
                     });
                 return b && c.length && {
@@ -556,13 +556,13 @@ var OraclePerformance = function (a) {
                     startTime: c[0].startTime + c[0].duration
                 }
             },
-            p = function () {
+            p = function() {
                 var b = document.querySelector('[class^="ch"], [class^="hp"]'),
                     c = b && b.querySelector("img"),
                     d = b && b.querySelector('[style*="background-image"]') || b && b.style.backgroundImage.length && b,
                     e = d && /url\("?(.*?)"?\)/.exec(a.getComputedStyle(d, null).backgroundImage),
                     f = e && e[1],
-                    g = a.performance.getEntriesByType("resource").filter(function (a) {
+                    g = a.performance.getEntriesByType("resource").filter(function(a) {
                         var b = c ? c.src : f;
                         return a.name === b
                     });
@@ -571,19 +571,19 @@ var OraclePerformance = function (a) {
                     startTime: g[0].startTime + g[0].duration
                 }
             },
-            q = function () {
+            q = function() {
                 var b = a.performance.getEntriesByType("mark"),
                     c = {};
-                b.filter(function (a) {
+                b.filter(function(a) {
                     return /\Start$/.test(a.name)
-                }).map(function (c) {
+                }).map(function(c) {
                     var d = /([\w-]+)(?:Start|End)/.exec(c.name)[1],
-                        e = b.filter(function (a) {
+                        e = b.filter(function(a) {
                             return new RegExp(d + "End$").test(a.name)
                         })[0];
                     void 0 !== e && void 0 !== e.name && a.performance.measure(d, c.name, e.name)
                 });
-                a.performance.getEntriesByType("measure").map(function (a) {
+                a.performance.getEntriesByType("measure").map(function(a) {
                     var b = a.name.split("-");
                     c[b[0]] = c[b[0]] || {};
                     c[b[0]][b[1]] = {
@@ -602,7 +602,7 @@ var OraclePerformance = function (a) {
     oracleDataMenu = oracleDataMenu || {
         contentCache: []
     };
-oracleDataMenu.fetchMenuContent = function (a) {
+oracleDataMenu.fetchMenuContent = function(a) {
     return a.length ? a instanceof jQuery && $.Deferred().resolve(a[0].outerHTML) || oracleDataMenu.contentCache[a.split("#")[0]] || (oracleDataMenu.contentCache[a.split("#")[0]] = jQuery.ajax({
         url: a,
         type: "GET",
@@ -613,35 +613,35 @@ oracleDataMenu.fetchMenuContent = function (a) {
 };
 
 /*! SHARED UTILITY FUNCTIONS */
-oracleDataMenu.classSelector = function (a, b) {
-    return Array.isArray(a) && a.map(function (a) {
-        return Array.isArray(b) && b.map(function (b) {
+oracleDataMenu.classSelector = function(a, b) {
+    return Array.isArray(a) && a.map(function(a) {
+        return Array.isArray(b) && b.map(function(b) {
             return Array.isArray(a) && "." + a.join(b + " .") + b || "." + a + b
         }).join() || Array.isArray(a) && "." + a.join(" .") + (b || "") || "." + a + (b || "")
-    }).join() || Array.isArray(b) && b.map(function (b) {
+    }).join() || Array.isArray(b) && b.map(function(b) {
         return "." + a + b
     }).join() || "." + a + (b || "")
 };
-oracleDataMenu.classList = function (a) {
-    return Array.isArray(a) && a.filter(function (a) {
+oracleDataMenu.classList = function(a) {
+    return Array.isArray(a) && a.filter(function(a) {
         return !!a
     }).join(" ") || a
 };
-oracleDataMenu.createElement = function (a, b, c) {
+oracleDataMenu.createElement = function(a, b, c) {
     var d = document.createElement(a);
     b = b || [];
     b = Array.isArray(b) ? b : [b];
     c = c || {};
-    Object.keys(c).map(function (a) {
+    Object.keys(c).map(function(a) {
         d[a] = c[a]
     });
     return $(d).addClass(oracleDataMenu.classList(b))
 };
-oracleDataMenu.addAriaAttributes = function (a) {
-    return a && this.each(function () {
-        $(this).find("a").get().forEach(function (a) {
+oracleDataMenu.addAriaAttributes = function(a) {
+    return a && this.each(function() {
+        $(this).find("a").get().forEach(function(a) {
             var b = a;
-            window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function() {
                 if ("visible" === window.getComputedStyle(b, null).visibility) {
                     b.removeAttribute("aria-hidden");
                     b.setAttribute("tabindex", 0)
@@ -652,9 +652,9 @@ oracleDataMenu.addAriaAttributes = function (a) {
 };
 
 /*! GENERIC - EQUALHEIGHT */
-! function ($) {
+! function($) {
     "use strict";
-    jQuery.fn.equalHeight = function (a) {
+    jQuery.fn.equalHeight = function(a) {
         var b = 0,
             c = -1,
             d = [],
@@ -662,7 +662,7 @@ oracleDataMenu.addAriaAttributes = function (a) {
             f = this.length,
             g, h, i, j;
         a = a || !1;
-        return f <= 1 ? this : this.each(function () {
+        return f <= 1 ? this : this.each(function() {
             i = $(this)[0];
             i.style.height = "auto";
             j = i.offsetHeight;
@@ -678,9 +678,9 @@ oracleDataMenu.addAriaAttributes = function (a) {
             d[c].collection.push(i);
             d[c].heightMatch = b;
             e++;
-            e === f && d.forEach(function (a) {
+            e === f && d.forEach(function(a) {
                 if (a.collection.length < 2) return !1;
-                a.collection.forEach(function (b) {
+                a.collection.forEach(function(b) {
                     b.style.height = a.heightMatch + "px"
                 })
             })
@@ -701,7 +701,7 @@ function getUrlVars() {
 }
 
 /*! GENERIC - PDITLOCALEMAP */
-var PDITLocaleMap = function ($, a) {
+var PDITLocaleMap = function($, a) {
     "use strict";
     var b = document.location.href,
         c = "https://www.oracle.com/pdit-locale-map.json";
@@ -714,9 +714,9 @@ var PDITLocaleMap = function ($, a) {
 
     function fetchLocaleMapJSON() {
         if (f) return e;
-        e = $.getJSON(c).then(function (a) {
+        e = $.getJSON(c).then(function(a) {
             return setLocalStorage(g, a)
-        }).fail(function (a) {
+        }).fail(function(a) {
             switch (a.status) {
                 case 200:
                     console.warn("PDITLocaleMap file " + c + " found, but with JSON errors");
@@ -731,7 +731,7 @@ var PDITLocaleMap = function ($, a) {
 
     function generateLookup(a) {
         h = h || {};
-        a.forEach(function (a) {
+        a.forEach(function(a) {
             h[a.siteid] = a
         });
         return h
@@ -756,19 +756,19 @@ var PDITLocaleMap = function ($, a) {
 
     function findEntryByKey(a) {
         a = a || {};
-        return !h && [] || Object.keys(h).filter(function (b) {
+        return !h && [] || Object.keys(h).filter(function(b) {
             var c = !0;
-            Object.keys(a).forEach(function (d) {
+            Object.keys(a).forEach(function(d) {
                 h[b][d] !== a[d] && (c = !1)
             });
             return "expires" !== b && c
-        }).map(function (a) {
+        }).map(function(a) {
             return h[a]
         })
     }
 
     function groupByKey(a) {
-        return !h && {} || Object.keys(h).reduce(function (b, c) {
+        return !h && {} || Object.keys(h).reduce(function(b, c) {
             if ("expires" !== c) {
                 b[h[c][a]] = b[h[c][a]] || [];
                 b[h[c][a]].push(h[c])
@@ -777,7 +777,7 @@ var PDITLocaleMap = function ($, a) {
         }, {})
     }
     return {
-        init: function () {
+        init: function() {
             return h && $.Deferred().resolve(h) || fetchLocaleMapJSON()
         },
         find: findEntryByKey,
@@ -793,27 +793,27 @@ function isStageSite() {
     "use strict";
     return document.documentElement.classList.contains("iswsites") || /localhost/.test(window.location.host)
 }
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     var a = $(".f20")[0] ? 300 : 1200;
-    setTimeout(function () {
+    setTimeout(function() {
         $("body").addClass("ready")
     }, a)
 });
 
 /*! GENERIC - MULI LINE CHARACTER CLAMPING */
-! function ($) {
+! function($) {
     "use strict";
-    $.fn.charClamp = function (a) {
+    $.fn.charClamp = function(a) {
         var b = $.extend({
             size: 75,
             omission: "...",
             ignore: !0
         }, a);
-        return this.each(function () {
+        return this.each(function() {
             var a, c, d = $(this),
                 e = /[!-\/:-@\[-`{-~]$/;
-            ! function () {
-                d.each(function () {
+            ! function() {
+                d.each(function() {
                     a = $(this).html();
                     if (a.length > b.size) {
                         c = $.trim(a).substring(0, b.size).split(" ").slice(0, -1).join(" ");
@@ -827,11 +827,11 @@ jQuery(document).ready(function ($) {
 }(jQuery);
 
 /*! GENERIC - HORIZONTAL SCROLL */
-! function ($) {
+! function($) {
     "use strict";
-    $.fn.hScroll = function (a) {
+    $.fn.hScroll = function(a) {
         a = a || 60;
-        $(this).bind("DOMMouseScroll mousewheel", function (b) {
+        $(this).bind("DOMMouseScroll mousewheel", function(b) {
             var c = b.originalEvent,
                 d = c.detail ? c.detail * -a : c.wheelDelta,
                 e = $(this).scrollLeft();
@@ -851,7 +851,7 @@ jQuery(document).ready(function ($) {
 	@license BSD License
 	@author Max Chuhryaev
 */
-!new function (e, n) {
+!new function(e, n) {
     function t(e, n, t, r) {
         if (n.addEventListener) {
             n.addEventListener(e, t, r)
@@ -897,7 +897,8 @@ jQuery(document).ready(function ($) {
                         for (var a = 0; a < n.name.length; a++) e[r].name.indexOf(n.name[a]) < 0 && e[r].name.push(n.name[a])
                     t = !0
                     break
-                } t || e.push(n)
+                }
+            t || e.push(n)
         }
     }
 
@@ -941,7 +942,7 @@ jQuery(document).ready(function ($) {
             p = i(e.type),
             h = n.createElement(s(e.type))
         h.queue = [u], h[c(e.type)] = e.url, h[p ? "type" : "rel"] = p ? "text/javascript" : "less" == e.type ? "stylesheet/less" : "stylesheet"
-        var v = function (n) {
+        var v = function(n) {
             if (r(l, h, v), r(f, h, v), a(h.queue) && h.queue.length)
                 for (; h.queue.length > 0;) {
                     var t = h.queue.shift()
@@ -968,10 +969,10 @@ jQuery(document).ready(function ($) {
             e = t.src,
             n = t.callback,
             r = 0,
-            a = function (e) {
+            a = function(e) {
                 return e.parentNode || y.appendChild(e), e
             },
-            o = function () {
+            o = function() {
                 for (var t = 0; t < n.length; t++) n[t](e)
                 for (var t = 0; t < e.length; t++) {
                     u("@import", e[t])
@@ -979,7 +980,7 @@ jQuery(document).ready(function ($) {
                 }
             }
         if (!e.length) return o()
-        for (var l = function () {
+        for (var l = function() {
                 r++, r == e.length && o()
             }, i = 0; i < e.length; i++) {
             var s = e[i].type,
@@ -1109,7 +1110,7 @@ function embedBrightcove(a, b, c, d, e, f) {
     c = c.indexOf("live-") > -1 ? "live" : "single";
     document.write('<div class="bcembed bcvideo" data-bcid="' + d + '" data-type="' + c + '" ' + b + " " + f + "></div>")
 }
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
     bc_embedsetup(jQuery(document));
     jQuery("body").append('<div class="bcvideo vidcsstest" style="width:0 !important"></div>');
     "rgba(0, 0, 0, 0)" != jQuery("div.bcvideo.vidcsstest").css("background-color") && "transparent" != jQuery("div.bcvideo.vidcsstest").css("background-color") || void 0 === cssfilepath || $import(cssfilepath + "oracle-video.css");
@@ -1118,23 +1119,23 @@ jQuery(document).ready(function () {
 
 function bc_embedsetup(a) {
     a.find(".responsiveVid").removeClass("responsiveVid");
-    a.find('a[rel^="brightcoveLightBox"],a[rel^="vbox"]').each(function () {
+    a.find('a[rel^="brightcoveLightBox"],a[rel^="vbox"]').each(function() {
         var a = jQuery(this);
         a.attr("rel", "vbox");
         a.attr("href", a.attr("href").replace(/.*videoplayer-ocom.html/g, "").replace(/bctid/g, "bcid").replace(/ /g, ""));
         !a.is("[data-lbl]") && a.is("[title]") ? a.attr("data-lbl", "lighbox-open-" + a.attr("title").toLowerCase().replace(/ /g, "-")) : !a.is("[data-lbl]") && a.text() ? a.attr("data-lbl", "lighbox-open-" + a.text().toLowerCase().replace(/ /g, "-")) : a.is("[data-lbl]") ? a.attr("data-lbl", a.attr("data-lbl")) : a.attr("data-lbl", "lighbox-open");
         a.is("[data-trackas]") || a.attr("data-trackas", "lightbox")
     });
-    a.find("div[data-embedbc]").each(function () {
+    a.find("div[data-embedbc]").each(function() {
         var a = jQuery(this).attr("data-embedbc").split(",")[3].replace(/['" ]*/g, "");
         jQuery(this).after('<div class="bcembed bcvideo" data-bcid="' + a + '" data-type="single"></div>');
         jQuery(this).remove()
     });
-    a.find(".bcembed.bcload").each(function () {
+    a.find(".bcembed.bcload").each(function() {
         bc_loadplayer(jQuery(this))
     });
-    a.find("div.bcembed").each(function () {
-        jQuery(this).waypoint(function () {
+    a.find("div.bcembed").each(function() {
+        jQuery(this).waypoint(function() {
             bc_loadplayer(jQuery(this.element));
             this.destroy()
         }, {
@@ -1164,14 +1165,14 @@ function bc_loadplayer(a) {
                 headers: {
                     Accept: "application/json;pk=" + bc_config.pk
                 },
-                beforeSend: function (a) {
+                beforeSend: function(a) {
                     a.setRequestHeader("Accept", "application/json;pk=" + bc_config.pk)
                 },
                 url: "https://edge.api.brightcove.com/playback/v1/accounts/" + bc_config.account + "/videos/" + a.attr("data-bcid"),
                 method: "GET",
                 dataType: "json",
                 crossDomain: !0,
-                success: function (b) {
+                success: function(b) {
                     for (var c = 0; b.sources[c];) {
                         if (b.sources[c].container = "MP4") {
                             var d = jQuery("#" + a.vid);
@@ -1179,7 +1180,7 @@ function bc_loadplayer(a) {
                             var e = new XMLHttpRequest;
                             e.open("GET", b.sources[c].src, !0);
                             e.responseType = "blob";
-                            e.onload = function () {
+                            e.onload = function() {
                                 if (200 === this.status) {
                                     var a = this.response;
                                     try {
@@ -1191,7 +1192,7 @@ function bc_loadplayer(a) {
                                     }
                                 }
                             };
-                            e.onerror = function () {
+                            e.onerror = function() {
                                 d.closest(".bcvideo").addClass("bgloaderror")
                             };
                             e.send();
@@ -1200,7 +1201,7 @@ function bc_loadplayer(a) {
                         c++
                     }
                 },
-                error: function () {
+                error: function() {
                     a.addClass("bgloaderror")
                 }
             })
@@ -1214,7 +1215,7 @@ function bc_loadplayer(a) {
             m = window.location.href,
             n;
         n = m.indexOf("oracle.com") > -1 && m.indexOf("webstandards") < 0 ? "//edge.api.brightcove.com/playback/v1/accounts/" + bc_config.account + "/playlists/" + j : "/ws-lib/helper-scripts/bc-midman.php?account=" + bc_config.account + "&playlist=" + j;
-        jQuery.when(vd01loadplayslist(i, n)).done(function (b) {
+        jQuery.when(vd01loadplayslist(i, n)).done(function(b) {
             var c, d, e, f, g, j, k, m, n, o, p, q = vd01GetBreakpoint(),
                 r = i.attr("data-viewmore"),
                 s = i.attr("data-viewless"),
@@ -1260,13 +1261,13 @@ function bc_loadplayer(a) {
                 vd01injectBtn(i, r);
                 vd01viewMore(i, u, r, s)
             }
-            i.find("div.bcfgallery-speakers").each(function (a) {
+            i.find("div.bcfgallery-speakers").each(function(a) {
                 $(this).hide();
                 o = $(this).attr("data-lsstxt");
                 $(this).after('<div class="bcfgallery-showless"><a class="bcfgallery-showless icn-img icn-min-cs" href="#hide" title="Show less">' + o + "</a></div>");
                 i.find("div.bcfgallery-showless").hide()
             })
-        }).fail(function (a) {
+        }).fail(function(a) {
             console.log("Error.")
         })
     } else if (c) {
@@ -1278,14 +1279,14 @@ function bc_loadplayer(a) {
             headers: {
                 Accept: "application/json;pk=" + bc_config.pk
             },
-            beforeSend: function (a) {
+            beforeSend: function(a) {
                 a.setRequestHeader("Accept", "application/json;pk=" + bc_config.pk)
             },
             url: "https://edge.api.brightcove.com/playback/v1/accounts/" + bc_config.account + "/videos/" + a.attr("data-bcid"),
             method: "GET",
             dataType: "json",
             crossDomain: !0,
-            success: function (b) {
+            success: function(b) {
                 var c = b.thumbnail & q < 300 ? b.thumbnail : b.poster;
                 a.append('<a href="?bcid=' + o + p + r + '" class="bclink" title="' + b.name + '"><button class="vjs-big-play-button"></button></a>');
                 a.append('<img class="bcimg" src="' + c + '" />')
@@ -1305,7 +1306,7 @@ function bc_loadplayer(a) {
         a.append(s);
         bc_config[a.ptype].prependHTML && a.append(bc_config[a.ptype].prependHTML);
         bc_config[a.ptype].appendHTML && a.append(bc_config[a.ptype].appendHTML);
-        $import(a.jspath, function () {
+        $import(a.jspath, function() {
             a.addClass("showembed");
             var b = videojs(a.vid);
             b.preload(!0);
@@ -1316,9 +1317,9 @@ function bc_loadplayer(a) {
             videoinfo && videoinfo.push(b);
             if (g) {
                 jQuery("ol.vjs-playlist-tmp").addClass("vjs-playlist").removeClass("vjs-playlist-tmp");
-                $("ol.vjs-playlist").each(function (a, b) {
+                $("ol.vjs-playlist").each(function(a, b) {
                     var c = [];
-                    f && (c[a] = window.setInterval(function () {
+                    f && (c[a] = window.setInterval(function() {
                         if ($(b).find(".vjs-selected cite")[0]) {
                             f && $(b).find(".vjs-playlist-item time").wrap('<div class="bctimew1"></div>');
                             clearInterval(c[a])
@@ -1332,7 +1333,7 @@ function bc_loadplayer(a) {
             if (a.is("[data-autocaption]")) {
                 var c = a.attr("data-autocaption"),
                     d = b.textTracks();
-                b.on("play", function (a) {
+                b.on("play", function(a) {
                     for (var b = 0; b < d.length; b++) {
                         var e = d[b];
                         "captions" === e.kind && e.language === c && (e.mode = "showing")
@@ -1352,7 +1353,7 @@ function bc_loadplayer(a) {
                 a.is('[data-autoshare="true"]') && !g && (h.displayAfterVideo = !0);
                 b.social(h)
             }
-            b.ready(function () {
+            b.ready(function() {
                 var a, c, d = document.createElement("div");
                 d.className = "vjs-error-w1";
                 d.innerHTML = '<div class="vjs-error-w2"><h1></h1><p></p></div><div class="vjs-error-logo"></div>';
@@ -1362,7 +1363,7 @@ function bc_loadplayer(a) {
                     g = new f(b, e);
                 b.addChild(g);
                 var h = g.descEl_.id;
-                b.on("error", function (a) {
+                b.on("error", function(a) {
                     var d = b.error().code,
                         e = b.duration(),
                         f = b.errors.getAll(),
@@ -1380,7 +1381,8 @@ function bc_loadplayer(a) {
                                     if (d == f[k].type) {
                                         j = f[k].headline;
                                         break
-                                    } j || (j = bc_errors.unknown.description[pglang])
+                                    }
+                                j || (j = bc_errors.unknown.description[pglang])
                             }
                         else j = bc_errors.unknown.description[pglang];
                         g.open();
@@ -1392,20 +1394,20 @@ function bc_loadplayer(a) {
             if (g && a.attr("data-bcid").indexOf(",") > -1) {
                 var i = a.attr("data-bcid").split(","),
                     j = videojs(a.find("video")[0].id);
-                bc_getdata(j, i, function (a) {
+                bc_getdata(j, i, function(a) {
                     j.playlist(a)
                 })
             }
         })
     }
-    a.on("focus", ".vjs-play-control", function (b) {
+    a.on("focus", ".vjs-play-control", function(b) {
         if ("webkit-tablet" == vd01GetBreakpoint(!0)) {
             $(b.currentTarget).blur();
             a.off("focus", ".vjs-play-control")
         }
     })
 }
-jQuery(document).keydown(function (a) {
+jQuery(document).keydown(function(a) {
     27 == a.which && (jQuery(".w10.w10yt")[0] ? yt_closelightbox() : jQuery("#w10")[0] && bc_closelightbox())
 });
 
@@ -1427,7 +1429,7 @@ function bc_loadlightbox(a, b, c, d, e, f, g, h) {
     injectionContent = '<div class="w10 w10fadein' + f + h + '" id="w10"><div class="w10w1"><div class="w10w2"><a id="w10close" href="#close" data-trackas="lightbox" data-lbl="lightbox-close"><em>Close</em></a><div class="bcembed bcvideo bc' + d + '" data-bcid="' + c + '" data-type="' + d + '" ' + e + " " + aCapt + ' data-autoplay="true" ' + g + '></div></div><div class="w10w3"></div></div></div>';
     h ? jQuery($(a.currentTarget).closest(".clickvideo-overlay")).append(injectionContent) : jQuery("body").append(injectionContent);
     jQuery("#w10").addClass("w10" + d);
-    setTimeout(function () {
+    setTimeout(function() {
         jQuery("#w10").removeClass("w10fadein");
         jQuery("#w10close").removeClass("hidden");
         h || jQuery("body").addClass("lightbox-noscroll")
@@ -1457,7 +1459,7 @@ function yt_loadlightbox(a, b, c, d, e, f, g, h, i, j, k, l) {
             }
     }
     jQuery("body").append('<div class="w10 w10fadein w10yt' + n.bigs + '" id="w10"><div class="w10w1"><div class="w10w2"><a id="w10close" href="#close" data-trackas="lightbox" data-lbl="lightbox-close"><em>Close</em></a><div class="ytembed ytvideo" data-autoplay="true"' + o + '></div></div><div class="w10w3"></div></div></div>');
-    setTimeout(function () {
+    setTimeout(function() {
         jQuery("#w10").removeClass("w10fadein");
         jQuery("#w10close").removeClass("hidden");
         jQuery("body").addClass("lightbox-noscroll")
@@ -1485,7 +1487,7 @@ function bc_closelightbox() {
         } catch (a) {}
     }
     bc_fadevolume(b.volume());
-    setTimeout(function () {
+    setTimeout(function() {
         try {
             b.stop();
             b.dispose();
@@ -1500,12 +1502,12 @@ function bc_closelightbox() {
 
 function yt_closelightbox() {
     jQuery("#w10").addClass("w10fadeout");
-    setTimeout(function () {
+    setTimeout(function() {
         jQuery("#w10").remove();
         jQuery("body").removeClass("lightbox-noscroll")
     }, 500)
 }
-jQuery(document).on("click", '.bclink[href*="bcid="]', function (a) {
+jQuery(document).on("click", '.bclink[href*="bcid="]', function(a) {
     a.preventDefault();
     a.stopPropagation();
     bc_pauseAll();
@@ -1523,37 +1525,37 @@ jQuery(document).on("click", '.bclink[href*="bcid="]', function (a) {
         bc_loadplayer(e.find("div.bcembed"))
     }
 });
-jQuery(document).on("click", 'a[rel^="vbox"][href*="bcid="]', function (a) {
+jQuery(document).on("click", 'a[rel^="vbox"][href*="bcid="]', function(a) {
     bc_loadlightbox(a, this.href);
     a.preventDefault()
 });
-jQuery(document).on("click", 'a[rel^="vbox"][href*="ytid="]', function (a) {
+jQuery(document).on("click", 'a[rel^="vbox"][href*="ytid="]', function(a) {
     yt_loadlightbox(this.href);
     a.preventDefault()
 });
-jQuery(document).on("click", "#w10close, .w10w3", function (a) {
+jQuery(document).on("click", "#w10close, .w10w3", function(a) {
     jQuery(a.currentTarget).closest(".w10").find(".ytshowembed")[0] ? yt_closelightbox() : bc_closelightbox();
     a.preventDefault()
 });
-jQuery(document).on("click", ".vjs-close-button", function (a) {
+jQuery(document).on("click", ".vjs-close-button", function(a) {
     jQuery("#w10close").removeClass("hidden")
 });
-jQuery(document).on("touchstart", ".vjs-close-button", function (a) {
+jQuery(document).on("touchstart", ".vjs-close-button", function(a) {
     jQuery("#w10close").removeClass("hidden")
 });
-jQuery(document).on("click", "button.vjs-share-control", function (a) {
+jQuery(document).on("click", "button.vjs-share-control", function(a) {
     $("#w10close").addClass("hidden")
 });
-jQuery(document).on("touchstart", "button.vjs-share-control", function (a) {
+jQuery(document).on("touchstart", "button.vjs-share-control", function(a) {
     $("#w10close").addClass("hidden")
 });
-jQuery(document).on("click", ".clickvideo", function (a) {
+jQuery(document).on("click", ".clickvideo", function(a) {
     $(a.currentTarget).hasClass("clickvideo-overlay") || jQuery(this).find("div.ytthumbnail,a.bclink").click()
 });
 
 function bc_pauseAll(a, b) {
     b || (b = jQuery(document));
-    "function" == typeof videojs && b.find("div.vjs-playing").each(function () {
+    "function" == typeof videojs && b.find("div.vjs-playing").each(function() {
         if (!jQuery(this).closest('[data-loopvideo="true"]')[0]) {
             var b = jQuery(this).attr("id"),
                 c = videojs(b);
@@ -1580,11 +1582,11 @@ function bc_getdata(a, b, c) {
         getVideo(a)
     }
 }
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
     var a = document.location.href;
     (a.indexOf("bcid=") > -1 || a.indexOf("playvid=") > -1) && bc_loadlightbox(!1, a.replace(/['"<>]/gi, "").replace(/playvid/gi, "bcid"))
 });
-jQuery(document).on("click", ".vjs-playlist-item", function (a) {
+jQuery(document).on("click", ".vjs-playlist-item", function(a) {
     if (jQuery(this).closest(".bcplaylist").find("div.vjs-social-overlay")[0] && !jQuery(this).closest(".bcplaylist").find("div.vjs-social-overlay").hasClass("vjs-hidden")) {
         jQuery(this).closest(".bcplaylist").find("div.vjs-social-overlay").addClass("vjs-hidden");
         jQuery(this).closest(".bcplaylist").find("div.vjs-dock-text,div.vjs-dock-shelf").removeClass("vjs-hidden");
@@ -1596,7 +1598,7 @@ jQuery(document).on("click", ".vjs-playlist-item", function (a) {
         videojs(b.attr("data-bcobjid")).autoplay(!0)
     }
 });
-jQuery(document).on("click", ".bcplaylist button.vjs-share-control", function (a) {
+jQuery(document).on("click", ".bcplaylist button.vjs-share-control", function(a) {
     var b = jQuery(this).closest("div.bcplaylist"),
         c = videojs(b.data("bcobjid")),
         d = document.location.href.replace(/[\?\&]bcid=[\d]+/gi, "").replace(/[\?\&]playerType=[^\&\#]+/gi, "").replace(/\#.*/gi, "").replace(/[\?\&]shareURL=[^\&\#]+/gi, "").replace(/\#.*/gi, "");
@@ -1607,7 +1609,7 @@ jQuery(document).on("click", ".bcplaylist button.vjs-share-control", function (a
     };
     c.social(e)
 });
-jQuery("button.vjs-share-control").on("touchstart click", function (a) {
+jQuery("button.vjs-share-control").on("touchstart click", function(a) {
     a.preventDefault();
     if ("touchstart" == a.type) {
         var b = jQuery(this).closest("div.bcvideo"),
@@ -1640,24 +1642,24 @@ function setSocialLinks() {
         b, c;
     if (this.data("shareonly")) {
         b = this.data("shareonly").split(",");
-        for (c in a) a[c] = b.some(function (a) {
+        for (c in a) a[c] = b.some(function(a) {
             return a.toLowerCase() === c
         })
     }
     return a
 }
-jQuery(document).ready(function () {
-    jQuery("video").bind("contextmenu", function () {
+jQuery(document).ready(function() {
+    jQuery("video").bind("contextmenu", function() {
         return !1
     })
 });
-jQuery(document).ready(function () {
-    jQuery("iframe.bciframe").each(function () {
+jQuery(document).ready(function() {
+    jQuery("iframe.bciframe").each(function() {
         bciframeResize(jQuery(this));
         jQuery(this).addClass("bciframesized")
     });
-    jQuery("iframe.bciframe")[0] && jQuery(window).on("resize", function () {
-        jQuery("iframe.bciframe").each(function () {
+    jQuery("iframe.bciframe")[0] && jQuery(window).on("resize", function() {
+        jQuery("iframe.bciframe").each(function() {
             bciframeResize(jQuery(this))
         })
     })
@@ -1670,7 +1672,7 @@ function bciframeResize(a) {
 function convertBCscripts2div(a) {
     var b = /embedBrightcove\([\S\s]*?\)/g,
         c = /"/gi;
-    a = a.replace(b, function (a, b) {
+    a = a.replace(b, function(a, b) {
         return a.replace(c, "'")
     });
     return a.replace(/embedBrightcove\([^)]+,[ ']*([^'),]+)[ ']*\)/gi, 'â€¢<div class="bcembed bcvideo" data-bcid="$1"></div>â€¢').replace(/<\/[^>]*script[^>]*>/gi, "Â°<\/script>").replace(/(<[^\/>]*script[^>]*>)/gi, "$1Â°").replace(/<[^\/>]*script[^>]*>Â°[^Â°â€¢]+â€¢/gi, "").replace(/<\/div>â€¢[^Â°]+Â°<\/[^>]*script[^>]*>/gi, "</div>")
@@ -1680,7 +1682,7 @@ function vd01GetBreakpoint(a) {
     var b = 1 == a ? ".bcvideo[data-bcid]" : ".bcgallery[data-playlistID]";
     return window.getComputedStyle(document.querySelector(b), ":before").getPropertyValue("content").replace(/\"/g, "")
 }
-var VD03 = function ($) {
+var VD03 = function($) {
     var a = {},
         b = "https://www.youtube.com/embed/",
         c = "https://i.ytimg.com/vi/[YTID]/",
@@ -1700,10 +1702,10 @@ var VD03 = function ($) {
             ytid: "",
             thumbq: ""
         },
-        h = function (a) {
+        h = function(a) {
             jQuery(a).prepend('<button class="vjs-big-play-button"></button>')
         },
-        i = function (a, c) {
+        i = function(a, c) {
             var d;
             d = "lightbox" == a ? void 0 !== c ? "?ytid=" + jQuery(c).attr("data-ytid") + "&" : "?ytid=" + f.ytid + "&" : void 0 !== c ? b + jQuery(c).attr("data-ytid") + "?" : b + f.ytid + "?";
             if (void 0 !== c)
@@ -1719,17 +1721,17 @@ var VD03 = function ($) {
                     for (var e in f) "ytid" != e && "" !== f[e] && (d += e + "=" + f[e] + "&");
             return d.replace(/&$/, "")
         },
-        j = function (a, b, c) {
+        j = function(a, b, c) {
             var d = jQuery('<iframe frameborder="0" width="' + a + '" height="' + b + '" allowfullscreen></iframe>'),
                 e = i("", c);
             d.addClass("ytembed");
             d.attr("src", e);
             return d
         },
-        k = function (a) {
+        k = function(a) {
             for (var b in g) f[b] = jQuery(a).attr("data-" + b) ? jQuery(a).attr("data-" + b) : g[b]
         },
-        l = function (a) {
+        l = function(a) {
             var b = jQuery("<img></img>"),
                 g = $(a).attr("data-thumbq"),
                 h;
@@ -1737,7 +1739,7 @@ var VD03 = function ($) {
             jQuery(b).attr("src", h.replace("[YTID]", f.ytid));
             jQuery(a).prepend(b)
         },
-        m = function (a) {
+        m = function(a) {
             var b, c, d, e, f = jQuery('<div class="ytvideo ytshowembed"><div></div></div>');
             jQuery(a).after(f);
             jQuery(a).remove();
@@ -1745,16 +1747,16 @@ var VD03 = function ($) {
             b = j("100%", "100%", a);
             jQuery(e).append(b)
         },
-        n = function (a) {
-            jQuery(a).waypoint(function () {
+        n = function(a) {
+            jQuery(a).waypoint(function() {
                 m(a);
                 this.destroy()
             }, {
                 offset: "105%"
             })
         },
-        o = function (a) {
-            jQuery(a).on("click", function (b) {
+        o = function(a) {
+            jQuery(a).on("click", function(b) {
                 var c = jQuery(window).width() > 1600 ? 1600 : jQuery(window).width(),
                     d = jQuery(b.currentTarget);
                 if (!(d.outerWidth() >= 600 || d.outerWidth() > .7 * c) || jQuery(this).closest(".lightboxonly")[0] || jQuery(this).closest(".clickvideo")[0]) {
@@ -1764,22 +1766,22 @@ var VD03 = function ($) {
                 } else m(a)
             })
         };
-    a.defaults = function () {
+    a.defaults = function() {
         return g
     };
-    a.initialize = function () {
-        jQuery("[data-ytid]").not(".ytthumbnail").each(function (a, b) {
+    a.initialize = function() {
+        jQuery("[data-ytid]").not(".ytthumbnail").each(function(a, b) {
             k(b);
             n(b)
         });
-        jQuery(".ytthumbnail[data-ytid]").each(function (a, b) {
+        jQuery(".ytthumbnail[data-ytid]").each(function(a, b) {
             k(b);
             jQuery(b).find("img")[0] || l(b);
             h(b);
             o(b)
         })
     };
-    a.execute = function (a) {
+    a.execute = function(a) {
         if (jQuery(a).is("[data-ytid]")) {
             k(a);
             n(a)
@@ -1787,13 +1789,13 @@ var VD03 = function ($) {
     };
     return a
 }(jQuery);
-jQuery(function () {
+jQuery(function() {
     VD03.initialize()
 });
-"onwebkitfullscreenchange" in document && jQuery(document).on("webkitfullscreenchange", function (a) {
+"onwebkitfullscreenchange" in document && jQuery(document).on("webkitfullscreenchange", function(a) {
     var b = document.webkitFullscreenElement,
         c = b && b.parentElement.classList.contains("bcvideo") && b.parentElement;
-    return c && (c.style.zIndex = 20) && jQuery(document).one("webkitfullscreenchange", function (a) {
+    return c && (c.style.zIndex = 20) && jQuery(document).one("webkitfullscreenchange", function(a) {
         return c.style.zIndex = ""
     })
 });
@@ -1803,7 +1805,7 @@ function vd01loadplayslist(a, b) {
         headers: {
             Accept: "application/json;pk=" + bc_config.pk
         },
-        beforeSend: function (a) {
+        beforeSend: function(a) {
             a.setRequestHeader("Accept", "application/json;pk=" + bc_config.pk)
         },
         url: b,
@@ -1838,7 +1840,7 @@ function vd01appendFulllengthKeynote(a, b) {
 }
 
 function vd01speakerVis(a) {
-    a.on("click", "div.bcfgallery-showless, a.bcfgallery-showmore", function (a) {
+    a.on("click", "div.bcfgallery-showless, a.bcfgallery-showmore", function(a) {
         a.preventDefault();
         var b = $(this).closest("div.bcfgallery-title"),
             c = $(b).find("div.bcfgallery-speakers"),
@@ -1879,11 +1881,11 @@ function vd01itemsPer(a, b) {
 
 function vd01debounce(a, b, c) {
     var d, e;
-    return function () {
+    return function() {
         var f = this,
             g = arguments,
             h, i;
-        h = function () {
+        h = function() {
             d = null;
             c || (e = a.apply(f, g))
         };
@@ -1897,11 +1899,11 @@ function vd01debounce(a, b, c) {
 
 function vd01viewMore(a, b, c, d, e) {
     var f = $(a).find(".col-item").length;
-    $(a).on("click", ".vd01expand a", function (f) {
+    $(a).on("click", ".vd01expand a", function(f) {
         var g = vd01itemsPer(b, e);
         f.preventDefault();
         if ($(a).find(".bchidden")[0]) {
-            $(a).find(".col-item.bchidden").each(function (a, b) {
+            $(a).find(".col-item.bchidden").each(function(a, b) {
                 a < g && $(b).removeClass("bchidden")
             });
             $(a).find(".bchidden")[0] || $(f.currentTarget).text(d)
@@ -1919,14 +1921,14 @@ function vd01viewReset(a, b, c, d, e) {
     var f = $(a).find(".col-item").length,
         g;
     g = vd01itemsPer(b, e);
-    $(a).find(".col-item").each(function (a, b) {
+    $(a).find(".col-item").each(function(a, b) {
         a >= g ? $(b).addClass("bchidden") : $(b).removeClass("bchidden")
     });
     $(a).find(".vd01expand a").text(c);
     g < f ? $(a).find(".vd01expand").show() : $(a).find(".vd01expand").hide()
 }
-var vd01resize = vd01debounce(function () {
-    $(".bcgallery[data-playlistid]").each(function (a, b) {
+var vd01resize = vd01debounce(function() {
+    $(".bcgallery[data-playlistid]").each(function(a, b) {
         var c = $(b).attr("data-pagesize"),
             d = $(b).attr("data-viewmore"),
             e = $(b).attr("data-viewless"),
@@ -1938,14 +1940,14 @@ var vd01resize = vd01debounce(function () {
     })
 }, 100);
 jQuery(".bcgallery[data-playlistid]")[0] && window.addEventListener("resize", vd01resize);
-! function (doc, win) {
+! function(doc, win) {
     if ("function" != typeof doc.createEvent) return !1;
-    var pointerId, currX, currY, cachedX, cachedY, timestamp, target, dblTapTimer, longtapTimer, pointerEvent = function (type) {
+    var pointerId, currX, currY, cachedX, cachedY, timestamp, target, dblTapTimer, longtapTimer, pointerEvent = function(type) {
             var lo = type.toLowerCase(),
                 ms = "MS" + type;
             return navigator.msPointerEnabled ? ms : !!window.PointerEvent && lo
         },
-        touchEvent = function (name) {
+        touchEvent = function(name) {
             return "on" + name in window && name
         },
         defaults = {
@@ -1963,19 +1965,19 @@ jQuery(".bcgallery[data-playlistid]")[0] && window.addEventListener("resize", vd
             touchend: touchEvent("touchend") || pointerEvent("PointerUp"),
             touchmove: touchEvent("touchmove") || pointerEvent("PointerMove")
         },
-        isTheSameFingerId = function (e) {
+        isTheSameFingerId = function(e) {
             return !e.pointerId || void 0 === pointerId || e.pointerId === pointerId
         },
-        setListener = function (elm, events, callback) {
+        setListener = function(elm, events, callback) {
             for (var eventsArray = events.split(" "), i = eventsArray.length; i--;) elm.addEventListener(eventsArray[i], callback, !1)
         },
-        getPointerEvent = function (event) {
+        getPointerEvent = function(event) {
             return event.targetTouches ? event.targetTouches[0] : event
         },
-        getTimestamp = function () {
+        getTimestamp = function() {
             return (new Date).getTime()
         },
-        sendEvent = function (elm, eventName, originalEvent, data) {
+        sendEvent = function(elm, eventName, originalEvent, data) {
             var customEvent = doc.createEvent("Event");
             if (customEvent.originalEvent = originalEvent, data = data || {}, data.x = currX, data.y = currY, data.distance = data.distance, defaults.useJquery && (customEvent = jQuery.Event(eventName, {
                     originalEvent: originalEvent
@@ -1985,15 +1987,15 @@ jQuery(".bcgallery[data-playlistid]")[0] && window.addEventListener("resize", vd
             }
             for (; elm;) elm["on" + eventName] && elm["on" + eventName](customEvent), elm = elm.parentNode
         },
-        onTouchStart = function (e) {
+        onTouchStart = function(e) {
             if (isTheSameFingerId(e) && (pointerId = e.pointerId, "mousedown" !== e.type && (wasTouch = !0), "mousedown" !== e.type || !wasTouch)) {
                 var pointer = getPointerEvent(e);
-                cachedX = currX = pointer.pageX, cachedY = currY = pointer.pageY, longtapTimer = setTimeout(function () {
+                cachedX = currX = pointer.pageX, cachedY = currY = pointer.pageY, longtapTimer = setTimeout(function() {
                     sendEvent(e.target, "longtap", e), target = e.target
                 }, defaults.longtapThreshold), timestamp = getTimestamp(), tapNum++
             }
         },
-        onTouchEnd = function (e) {
+        onTouchEnd = function(e) {
             if (isTheSameFingerId(e)) {
                 if (pointerId = void 0, "mouseup" === e.type && wasTouch) return void(wasTouch = !1);
                 var eventsArr = [],
@@ -2011,55 +2013,55 @@ jQuery(".bcgallery[data-playlistid]")[0] && window.addEventListener("resize", vd
                         })
                     }
                     tapNum = 0
-                } else cachedX >= currX - defaults.tapPrecision && cachedX <= currX + defaults.tapPrecision && cachedY >= currY - defaults.tapPrecision && cachedY <= currY + defaults.tapPrecision && timestamp + defaults.tapThreshold - now >= 0 && (sendEvent(e.target, tapNum >= 2 && target === e.target ? "dbltap" : "tap", e), target = e.target), dblTapTimer = setTimeout(function () {
+                } else cachedX >= currX - defaults.tapPrecision && cachedX <= currX + defaults.tapPrecision && cachedY >= currY - defaults.tapPrecision && cachedY <= currY + defaults.tapPrecision && timestamp + defaults.tapThreshold - now >= 0 && (sendEvent(e.target, tapNum >= 2 && target === e.target ? "dbltap" : "tap", e), target = e.target), dblTapTimer = setTimeout(function() {
                     tapNum = 0
                 }, defaults.dbltapThreshold)
             }
         },
-        onTouchMove = function (e) {
+        onTouchMove = function(e) {
             if (isTheSameFingerId(e) && ("mousemove" !== e.type || !wasTouch)) {
                 var pointer = getPointerEvent(e);
                 currX = pointer.pageX, currY = pointer.pageY
             }
         },
         tapNum = 0;
-    setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart), setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd), setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove), win.tocca = function (options) {
+    setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart), setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd), setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove), win.tocca = function(options) {
         for (var opt in options) defaults[opt] = options[opt];
         return defaults
     }
 }(document, window);
-$(document).on("blur", ".o-hf", function () {
+$(document).on("blur", ".o-hf", function() {
     $(this).removeClass("o-hf")
 });
-$(document).on("mousedown touchstart", "a,button,span[tabindex],li[tabindex],div[tabindex]", function () {
+$(document).on("mousedown touchstart", "a,button,span[tabindex],li[tabindex],div[tabindex]", function() {
     $(this).addClass("o-hf")
 });
 
 /*! ORACLE - TRUSTE */
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
     return !jQuery("#consent_blackbar").length && jQuery("body").prepend('<div id="consent_blackbar"></div>')
 });
 var oracle = oracle || {};
 oracle.truste = {};
 oracle.truste.api = {};
-(function () {
+(function() {
     var a = "notice_gdpr_prefs",
         b = "truste.eu.cookie.notice_preferences",
         c = "truste.eu.cookie.notice_gdpr_prefs";
-    this.getCookieName = function () {
+    this.getCookieName = function() {
         return "notice_preferences"
     };
-    this.getStorageItemName = function () {
+    this.getStorageItemName = function() {
         return b
     };
-    this.getGdprCookieName = function () {
+    this.getGdprCookieName = function() {
         return "notice_gdpr_prefs"
     };
-    this.getGdprStorageItemName = function () {
+    this.getGdprStorageItemName = function() {
         return c
     }
 }).apply(oracle.truste);
-(function () {
+(function() {
     var b = oracle.truste;
 
     function getCookie(a) {
@@ -2082,11 +2084,11 @@ oracle.truste.api = {};
         }
         return null
     }
-    this.getConsentCode = function () {
+    this.getConsentCode = function() {
         var a = getTRUSTeLocalStorageValue(b.getStorageItemName()) || getCookie(b.getCookieName());
         return null == a ? -1 : parseInt(a) + 1
     };
-    this.getGdprConsentCode = function () {
+    this.getGdprConsentCode = function() {
         var c = getTRUSTeLocalStorageValue(b.getGdprStorageItemName()) || getCookie(b.getGdprCookieName());
         if (null == c) return -1;
         var d = new Array;
@@ -2094,7 +2096,7 @@ oracle.truste.api = {};
         for (a in d) d[a] = parseInt(d[a], 10) + 1;
         return d.toString()
     };
-    this.getConsentDecision = function () {
+    this.getConsentDecision = function() {
         var a = this.getConsentCode();
         if (-1 == a) {
             var b = '{"consentDecision": 0, "source": "implied"}';
@@ -2103,7 +2105,7 @@ oracle.truste.api = {};
         var b = '{"consentDecision": ' + parseInt(a) + ', "source": "asserted"}';
         return JSON.parse(b)
     };
-    this.getGdprConsentDecision = function () {
+    this.getGdprConsentDecision = function() {
         var a = this.getGdprConsentCode();
         if (-1 == a) {
             var b = '{"consentDecision": [0], "source": "implied"}';
@@ -2216,8 +2218,8 @@ function private_ORA_UCM_INFO() {
 }
 
 /*! ORACLE - TRACKING URL */
-jQuery(document).ready(function () {
-    jQuery("a[data-cxdtrack],a[data-adbtrack]").each(function () {
+jQuery(document).ready(function() {
+    jQuery("a[data-cxdtrack],a[data-adbtrack]").each(function() {
         var a = "",
             b = "us" != $("meta[name=siteid]").attr("content") ? "_" + $("meta[name=siteid]").attr("content") : "",
             c = jQuery(this).attr("href"),
@@ -2230,7 +2232,7 @@ jQuery(document).ready(function () {
     var a = getUrlVars().source,
         b = "";
     void 0 != a && (b = a);
-    "" != b && jQuery(document).on("mousedown", 'a:not([href^="#"])', function (a) {
+    "" != b && jQuery(document).on("mousedown", 'a:not([href^="#"])', function(a) {
         var c = jQuery(this).attr("href"),
             d = b.split("+")[0];
         if (void 0 == c || -1 != c.indexOf("source=" + d) || -1 != c.indexOf("src1=" + d) || -1 != c.indexOf("sourceType=" + d) || -1 != c.indexOf("elqSignOut") || -1 != c.indexOf("learn.oracle.com")) return !0;
@@ -2252,7 +2254,7 @@ jQuery(document).ready(function () {
         }
         e[l] = void 0 == e[l] ? b : b.split("+")[0].split("%2B")[0] + "%2B" + e[l];
         qsSource = h;
-        jQuery.each(e, function (a, b) {
+        jQuery.each(e, function(a, b) {
             if (a != l) {
                 qsSource += a + "=" + b;
                 if ("nexturl" == a) {
@@ -2267,7 +2269,7 @@ jQuery(document).ready(function () {
         qsSource = qsSource.slice(0, -1);
         if (j) {
             var n = "";
-            jQuery.each(getUrlVars(), function (a, b) {
+            jQuery.each(getUrlVars(), function(a, b) {
                 "source" != b && (n += "&" + b + (getUrlVars()[b] ? "=" + getUrlVars()[b] : ""))
             });
             qsSource += n;
@@ -2278,7 +2280,7 @@ jQuery(document).ready(function () {
 });
 
 /*! U28 */
-$(document).ready(function () {
+$(document).ready(function() {
     if ($(".u28")[0]) {
         var a = !1,
             b = window.location.href;
@@ -2290,7 +2292,7 @@ $(document).ready(function () {
         function getMegaMenuData(a) {
             var b = "u20ham",
                 c = jQuery.Deferred();
-            c.promise().then(asyncrWait).then(oracleDataMenu.fetchMenuContent(a).then(function (a) {
+            c.promise().then(asyncrWait).then(oracleDataMenu.fetchMenuContent(a).then(function(a) {
                 buildMegaMenu(a.replace(/<([^h\/>]*)h5/g, '<a class="u20ham"').replace(/<\/h5>/g, "</a>"))
             }));
             c.resolve()
@@ -2298,7 +2300,7 @@ $(document).ready(function () {
 
         function asyncrWait() {
             var a = $.Deferred();
-            setTimeout(function () {
+            setTimeout(function() {
                 a.resolve("generating async wait")
             }, 0);
             return a.promise()
@@ -2321,18 +2323,18 @@ $(document).ready(function () {
             $(".u28w6").append(d[0]);
             u28rotatingsuggest();
             u28buildmobilenav();
-            $(".mclose").on("click", function (a) {
+            $(".mclose").on("click", function(a) {
                 $(a.target).toggleClass("open");
                 $(a.target).siblings("ul").slideToggle(300)
             });
             addAccessibility();
-            setTimeout(function () {
+            setTimeout(function() {
                 adjustDropdown()
             }, 2e3)
         }
 
         function addAccessibility() {
-            $("[tabindex]").each(function () {
+            $("[tabindex]").each(function() {
                 $(this).attr("tabindex") > 0 && $(this).attr("tabindex", "0")
             });
             $(".u28-searchicon").attr("tabindex", "-1");
@@ -2341,7 +2343,7 @@ $(document).ready(function () {
             $("#u28nav").attr("aria-role", "menu").attr("tabindex", "-1");
             $(".u28-profile").attr("tabindex", "-1");
             $(".u28-profilew1").attr("tabindex", "-1").attr("id", "u28-profilew1");
-            $(".u28-profilew1 a[data-lbl]").each(function () {
+            $(".u28-profilew1 a[data-lbl]").each(function() {
                 $(this).attr("tabindex", "-1")
             });
             var a = $(".u28prof > span")[0].innerText;
@@ -2360,7 +2362,7 @@ $(document).ready(function () {
                 k.toggleClass("u28fadeIn");
                 $(".u28prof").attr("tabindex", "0");
                 $(".u28ham").attr("aria-expanded", "false");
-                setTimeout(function () {
+                setTimeout(function() {
                     $(".u28ham").focus()
                 }, 50)
             }
@@ -2370,12 +2372,12 @@ $(document).ready(function () {
             if (9 === a.keyCode) {
                 $(".u28prof").attr("aria-expanded", "false");
                 $("#u28-profilew1").attr("tabindex", -1);
-                $("#u28-profilew1 a[data-lbl]").each(function () {
+                $("#u28-profilew1 a[data-lbl]").each(function() {
                     $(this).attr("tabindex", "-1")
                 });
                 m.toggleClass("u28fadeIn");
                 d.toggleClass("profactive");
-                setTimeout(function () {
+                setTimeout(function() {
                     $(".u28prof").focus()
                 }, 50)
             }
@@ -2406,7 +2408,7 @@ $(document).ready(function () {
             USER.firstname && "NOT_FOUND" != USER.firstname && USER.lastname && "NOT_FOUND" != USER.lastname ? $(".u28l-in").prepend('<li><a href="https://profile.oracle.com/myprofile/account/secure/update-account.jspx?nexturl=' + b + '" data-lbl="profile:user-account">' + USER.firstname + " " + USER.lastname + "</a></li>") : USER.firstname && "NOT_FOUND" != USER.firstname && $(".u28l-in").prepend('<li><a href="https://profile.oracle.com/myprofile/account/secure/update-account.jspx?nexturl=' + b + '" data-lbl="profile:user-account">' + USER.firstname + "</a></li>");
             l.addClass("loggedin")
         }
-        $(document).keyup(function (a) {
+        $(document).keyup(function(a) {
             if ("Escape" === a.key && d.hasClass("u28navactive")) {
                 d.removeClass("u28navactive u28cover");
                 k.removeClass("u28fadeIn");
@@ -2428,7 +2430,7 @@ $(document).ready(function () {
                 if (a > w && a > x) {
                     if (!d.hasClass("u28-up")) {
                         d.removeClass("u28-top u28-down").addClass("u28-up");
-                        setTimeout(function () {
+                        setTimeout(function() {
                             d.hasClass("u28-past") || d.addClass("u28-past")
                         }, 400)
                     }
@@ -2454,14 +2456,14 @@ $(document).ready(function () {
 
         function u28delay(a, b) {
             var c = 0;
-            return function () {
+            return function() {
                 clearTimeout(c);
                 for (var d = arguments.length, e = new Array(d), f = 0; f < d; f++) e[f] = arguments[f];
                 c = setTimeout(a.bind.apply(a, [this].concat(e)), b || 0)
             }
         }
         var C = 600;
-        g.on("click", function (a) {
+        g.on("click", function(a) {
             u28acscheck();
             addInputFocus();
             d.removeClass("u28navactive u28cover");
@@ -2469,17 +2471,17 @@ $(document).ready(function () {
             m.removeClass("u28fadeIn");
             d.removeClass("profactive")
         });
-        $(".u28prof, .u28actbck").on("click", function (a) {
+        $(".u28prof, .u28actbck").on("click", function(a) {
             if ("false" == $(".u28prof").attr("aria-expanded")) {
                 $(".u28prof").attr("aria-expanded", "true");
                 $("#u28-profilew1").attr("tabindex", 0);
-                $("#u28-profilew1 a[data-lbl]").each(function () {
+                $("#u28-profilew1 a[data-lbl]").each(function() {
                     $(this).attr("tabindex", "0")
                 })
             } else {
                 $(".u28prof").attr("aria-expanded", "false");
                 $("#u28-profilew1").attr("tabindex", -1);
-                $("#u28-profilew1 a[data-lbl]").each(function () {
+                $("#u28-profilew1 a[data-lbl]").each(function() {
                     $(this).attr("tabindex", "-1")
                 })
             }
@@ -2493,7 +2495,7 @@ $(document).ready(function () {
             a.preventDefault();
             return !1
         });
-        $(".u28ham, .mnavback, .u28cover").click(function (a) {
+        $(".u28ham, .mnavback, .u28cover").click(function(a) {
             u28acscheck();
             d.toggleClass("u28navactive u28cover");
             k.toggleClass("u28fadeIn");
@@ -2516,18 +2518,18 @@ $(document).ready(function () {
             a.preventDefault();
             return !1
         });
-        p || $(".u28ham").on("mouseover touchstart", function (a) {
+        p || $(".u28ham").on("mouseover touchstart", function(a) {
             p = !0;
             k.addClass("bgload")
         });
-        $(".u28-searchicon").on("click", function (a) {
+        $(".u28-searchicon").on("click", function(a) {
             addInputFocus();
             a.preventDefault();
             return !1
         });
 
         function u28rotatingsuggest() {
-            $(".u28w7 li").each(function () {
+            $(".u28w7 li").each(function() {
                 var a = $(this).text();
                 q.push(a)
             });
@@ -2535,7 +2537,7 @@ $(document).ready(function () {
             t ? $(".u28placeholder span").text(u + " " + q[0]) : $(".u28placeholder span").text(u + ' "' + q[0] + '"');
             $(".u28placeholder span").fadeIn(400);
             ! function animate() {
-                $(".u28placeholder span").delay(2e3).fadeOut(400, function () {
+                $(".u28placeholder span").delay(2e3).fadeOut(400, function() {
                     h = (h + 1) % q.length;
                     t ? $(".u28placeholder span").text(q[h]) : $(".u28placeholder span").text(u + ' "' + q[h] + '"')
                 }).fadeIn(400, animate)
@@ -2543,14 +2545,14 @@ $(document).ready(function () {
         }
 
         function u28buildmobilenav() {
-            $(".u28navw1>ul>li>h3").each(function () {
+            $(".u28navw1>ul>li>h3").each(function() {
                 $(this).not(":has(a)").css("opacity", "0.6");
                 $(this).siblings("ul").length && $(this).parent().prepend('<span class="mclose"></span>')
             })
         }
 
         function u28videocheck() {
-            $(".u28w8 .bcembed")[0] && $(".u28w8 .bcembed").each(function () {
+            $(".u28w8 .bcembed")[0] && $(".u28w8 .bcembed").each(function() {
                 bc_loadplayer($(this))
             })
         }
@@ -2568,7 +2570,7 @@ $(document).ready(function () {
                 height: "auto"
             })
         }
-        $(".u28 a.u28-back").on("click", function (a) {
+        $(".u28 a.u28-back").on("click", function(a) {
             a.preventDefault();
             g.val("");
             closedropdown();
@@ -2584,7 +2586,7 @@ $(document).ready(function () {
                 i.addClass("u28dropfadeIn");
                 g.removeAttr("placeholder");
                 adjustDropdown();
-                setTimeout(function () {
+                setTimeout(function() {
                     i.addClass("dropdownopen")
                 }, 501)
             }
@@ -2597,7 +2599,7 @@ $(document).ready(function () {
             $(".u28placeholder").removeClass("u28hidden");
             d.removeClass("dropdownactive");
             i.addClass("u28move");
-            setTimeout(function () {
+            setTimeout(function() {
                 i.removeClass("u28move");
                 i.removeClass("u28dropfadeIn");
                 i.removeClass("dropdownopen")
@@ -2611,7 +2613,7 @@ $(document).ready(function () {
         function addInputFocus() {
             d.addClass("u28focus")
         }
-        $(".u28w2").on("click", "a.u28complete", function (a) {
+        $(".u28w2").on("click", "a.u28complete", function(a) {
             a.preventDefault();
             var b = $(a.currentTarget).text();
             g.val(b);
@@ -2621,7 +2623,7 @@ $(document).ready(function () {
             f.submit();
             return !1
         });
-        j.on("click", ".u28w7 li", function (a) {
+        j.on("click", ".u28w7 li", function(a) {
             var b = $(this).text();
             g.val(b);
             f.submit()
@@ -2659,7 +2661,7 @@ $(document).ready(function () {
                 u = !1,
                 v = !1,
                 w = !1;
-            jQuery.getJSON(p, function (a) {
+            jQuery.getJSON(p, function(a) {
                 d.removeClass("u28navactive");
                 for (var e = 0; e < a.contents.length; e++) {
                     if ("ResultsList" === a.contents[e]["@type"] && !u) {
@@ -2770,7 +2772,7 @@ $(document).ready(function () {
                         }
                     }
                     b <= 0 && j.find("*").not(".u28skel").not(".u28skel li").remove();
-                    setTimeout(function () {
+                    setTimeout(function() {
                         if (m && n && !o) {
                             h += '<div class="ctryfilter filter' + b + '">';
                             h += '<div class="ctryfilterw1">';
@@ -2780,7 +2782,7 @@ $(document).ready(function () {
                             h += "</div>";
                             h += "</div>";
                             j.append(h);
-                            $(".clrctry").on("click", function (a) {
+                            $(".clrctry").on("click", function(a) {
                                 o = !0;
                                 j.find("*").not(".u28skel").not(".u28skel li").remove();
                                 buildResults(0)
@@ -2791,7 +2793,7 @@ $(document).ready(function () {
                         j.append(l);
                         j.removeClass("hidden").addClass("u28found");
                         u28videocheck();
-                        $(".cb19v2").length && $(".cb19v2").each(function () {
+                        $(".cb19v2").length && $(".cb19v2").each(function() {
                             $(this).find("img, .bcthumbnail").length && $(this).closest(".cb19v2").addClass("u28proimg")
                         });
                         removeInputFocus();
@@ -2814,7 +2816,7 @@ $(document).ready(function () {
                         adjustDropdown();
                         j.removeClass("loading")
                     }, 100)
-                } else if (b <= 0) setTimeout(function () {
+                } else if (b <= 0) setTimeout(function() {
                     if (!$(".u28w8 .u28noresults")[0]) {
                         j.removeClass("loading hidden");
                         j.addClass("u28found");
@@ -2828,11 +2830,11 @@ $(document).ready(function () {
                     j.addClass("u28found");
                     adjustDropdown()
                 }
-            }).done(function (a) {
+            }).done(function(a) {
                 var b = !0;
                 j.addClass("u28loaded");
-                setTimeout(function () {
-                    $(".u28w4").scroll(function () {
+                setTimeout(function() {
+                    $(".u28w4").scroll(function() {
                         var a = j.offset().top,
                             c = j.height();
                         if ($(window).height() + $(".u28w4").scrollTop() > a + c && b) {
@@ -2844,14 +2846,14 @@ $(document).ready(function () {
                 }, 200)
             })
         }
-        f.submit(function (a) {
+        f.submit(function(a) {
             opendropdown();
             j.find("*").not(".u28skel").not(".u28skel li").remove();
             r = 0;
             buildResults(0);
             d.removeClass("u28navactive u28cover");
             k.removeClass("u28fadeIn");
-            setTimeout(function () {
+            setTimeout(function() {
                 j.addClass("u28fadeIn").siblings(".u28trgt").removeClass("u28fadeIn");
                 $(".u28suggest").removeClass("active")
             }, 200);
@@ -2861,14 +2863,14 @@ $(document).ready(function () {
         function updateLinks(a) {
             var b = window.location.host,
                 c = encodeURI(window.location.href.replace(/^http:/gi, "https:")).replace(/^https:\/\/www-content/gi, "http://www-content");
-            a.find('a[href*="nexturl="]').each(function () {
+            a.find('a[href*="nexturl="]').each(function() {
                 var a = $(this);
                 a.attr("href", a.attr("href").replace(/nexturl=/gi, "nexturl=" + c))
             })
         }
         updateLinks($(".u28l-out"));
 
-        function adjustDropdown() {
+        /*   function adjustDropdown() {
             var a = $(".u28w1").outerHeight(),
                 b = $(".u28w2").offset(),
                 c = $(".u28s2").position(),
@@ -2878,8 +2880,8 @@ $(document).ready(function () {
             e = g <= 974;
             var h = $(".u28prof"),
                 i = $(window).width() - (h.offset().left + h.outerWidth()),
-                k = new MutationObserver(function (a) {
-                    a.forEach(function (a) {
+                k = new MutationObserver(function(a) {
+                    a.forEach(function(a) {
                         e && (a.target.classList.contains("u28navactive") || a.target.classList.contains("dropdownactive") || a.target.classList.contains("profactive") ? $("body").addClass("u28disable-scroll") : $("body").removeClass("u28disable-scroll"))
                     })
                 }),
@@ -2893,7 +2895,7 @@ $(document).ready(function () {
                 j.css("width", d).css({
                     left: c.left + "px"
                 });
-                $(".u28w2 ul.u28suggest li a, .u28w2 ul.u28suggest li cite").each(function () {
+                $(".u28w2 ul.u28suggest li a, .u28w2 ul.u28suggest li cite").each(function() {
                     $(this).css({
                         "margin-left": c.left + "px",
                         "max-width": d + "px"
@@ -2903,20 +2905,20 @@ $(document).ready(function () {
                 j.css("width", d).css({
                     left: b.left + "px"
                 });
-                $(".u28w2 ul.u28suggest li a, .u28w2 ul.u28suggest li cite").each(function () {
+                $(".u28w2 ul.u28suggest li a, .u28w2 ul.u28suggest li cite").each(function() {
                     $(this).css({
                         "margin-left": b.left + "px",
                         "max-width": d + "px"
                     })
                 })
             }
-            a + Math.max.apply(null, $(".u28navw1>ul").map(function () {
+            a + Math.max.apply(null, $(".u28navw1>ul").map(function() {
                 return this.clientHeight
             })) + 88 >= f ? $(".u28nav").addClass("u28shortnav") : $(".u28nav").removeClass("u28shortnav")
         }
-
+ 
         function showsuggest() {
-            setTimeout(function () {
+            setTimeout(function() {
                 $(".u28suggest").addClass("active");
                 j.removeClass("hidden")
             }, 300);
@@ -2926,18 +2928,19 @@ $(document).ready(function () {
                 opacity: 1
             }, 300)
         }
-        $(window).resize(function () {
+        $(window).resize(function() {
             adjustDropdown()
         });
-        $(window).on("orientationchange", function (a) {
+        $(window).on("orientationchange", function(a) {
             adjustDropdown()
         });
-        setTimeout(function () {
-            $(window).scroll(function (a) {
+        */
+        setTimeout(function() {
+            $(window).scroll(function(a) {
                 v = !0;
                 $(document).scrollTop() <= 1 && d.hasClass("u28-past") && d.removeClass("u28-down u28-up u28-past").addClass("u28-top")
             });
-            setInterval(function () {
+            setInterval(function() {
                 if (v) {
                     u28hasScrolled();
                     v = !1
@@ -2946,22 +2949,22 @@ $(document).ready(function () {
             d.addClass("dropdownloaded")
         }, 200);
         Autocomplete = {
-            init: function (a) {
+            init: function(a) {
                 inputField = a.inputField;
                 lastComplete = null
             },
-            clearTypeAhead: function (a) {},
-            onload: function () {
+            clearTypeAhead: function(a) {},
+            onload: function() {
                 Autocomplete.init({
                     inputField: $("#askoracleinput")
                 });
-                inputField.on("input", function () {
+                inputField.on("input", function() {
                     if (this.value.length > 0) {
                         $(".u28placeholder").addClass("u28hidden");
                         $(".u28w3").addClass("u28typing")
                     }
                 });
-                inputField.keydown(function (a) {
+                inputField.keydown(function(a) {
                     var b = a.keyCode,
                         c = $(".u28suggest li");
                     if (40 === b || 9 === b && 0 == a.shiftKey) {
@@ -2993,7 +2996,7 @@ $(document).ready(function () {
                         return !1
                     }
                 });
-                inputField.keyup(u28delay(function (b) {
+                inputField.keyup(u28delay(function(b) {
                     var c = this.value,
                         d = b.keyCode,
                         e = this.value.length,
@@ -3006,7 +3009,7 @@ $(document).ready(function () {
                         l = "https://www.oracle.com/search/autosuggest.json/browse?Dy=1&contentPaths=%2Fcontent%2FWeb%2FShared%2FAuto-Suggest%20Panel&templateTypes=AutoSuggestPanel&Ntt=" + this.value + "*";
                     if (8 == d || 46 == d) return !1;
                     if (13 == d) {
-                        $(".u28suggestlnk").each(function () {
+                        $(".u28suggestlnk").each(function() {
                             if ("true" == $(this).parent().attr("aria-selected") && $(".u28suggest").is(":visible")) {
                                 closedropdown();
                                 $(".u28suggest").hide();
@@ -3040,7 +3043,7 @@ $(document).ready(function () {
                                 dataType: "json",
                                 url: k,
                                 async: !0,
-                                error: function () {
+                                error: function() {
                                     console.log("Autosuggest fail")
                                 }
                             }),
@@ -3048,21 +3051,21 @@ $(document).ready(function () {
                                 dataType: "json",
                                 url: l,
                                 async: !0,
-                                error: function () {
+                                error: function() {
                                     console.log("Autocomplete fail")
                                 }
                             });
-                        jQuery.when(o, p).then(function (a, b) {
+                        jQuery.when(o, p).then(function(a, b) {
                             $(".u28suggest").html("");
                             if (a[0].contents[0].numResults > 0) {
-                                jQuery.each(a[0].contents[0].records, function (a, b) {
+                                jQuery.each(a[0].contents[0].records, function(a, b) {
                                     if (a <= 2) {
                                         var d = b.attributes.Title,
                                             e = b.attributes.aoDestinationURL,
                                             f = b.attributes.aoDestinationType,
                                             g = "u28-globe",
                                             h = d.toString(),
-                                            i = h.replace(new RegExp(c, "gi"), function (a) {
+                                            i = h.replace(new RegExp(c, "gi"), function(a) {
                                                 return "<b>".concat(a, "</b>")
                                             });
                                         if (f) {
@@ -3075,7 +3078,7 @@ $(document).ready(function () {
                                 var d = !0
                             }
                             if (b[0].contents[0].autoSuggest[0].totalNumResults > 0) {
-                                jQuery.each(b[0].contents[0].autoSuggest[0].dimensionSearchGroups[0].dimensionSearchValues, function (a, b) {
+                                jQuery.each(b[0].contents[0].autoSuggest[0].dimensionSearchGroups[0].dimensionSearchValues, function(a, b) {
                                     var d = new RegExp(c, "gi"),
                                         e = b.label.replace(d, "<b>" + c + "</b>");
                                     $(".u28suggest").append('<li aria-selected="false"><a class="u28-search u28complete" href="#" data-trackas="header:search" data-lbl="keyword:' + c + ":suggest:" + b.label + '">' + e + "</a></li>")
@@ -3091,7 +3094,7 @@ $(document).ready(function () {
                                             k = j;
                                         if (null === j) Autocomplete.clearTypeAhead("u28typeahead");
                                         else {
-                                            $(".u28suggest li a").each(function () {
+                                            $(".u28suggest li a").each(function() {
                                                 c === $(this).text() && ($(this).hasClass("u28suggestlnk") || $(this).parent().remove())
                                             });
                                             $('<li aria-selected="false"><a class="u28-search u28complete" href="#">' + c + "</a></li>").insertAfter(h);
@@ -3103,7 +3106,7 @@ $(document).ready(function () {
                                             n.focus();
                                             n.setSelectionRange(e, o);
                                             h.attr("aria-selected", "true");
-                                            setTimeout(function () {
+                                            setTimeout(function() {
                                                 adjustDropdown()
                                             }, 100)
                                         }
@@ -3170,7 +3173,7 @@ $(document).ready(function () {
 }(jQuery);
 
 /*! U10 */
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     if ($(".u10")[0] || $("#u10")[0]) {
         var a;
         $("#u10cmenu a").first().attr("href") && (a = $("#u10cmenu a").first().attr("href"));
@@ -3179,7 +3182,7 @@ jQuery(document).ready(function ($) {
         $("ul.u10-links li").last().addClass("u10last");
         $(".u10w6.icn-googleplus").closest(".u10w2").remove();
         $("#teconsent > a").removeAttr("role");
-        $(".u10").on("click", ".u10w3 h5, .u10btn", function () {
+        $(".u10").on("click", ".u10w3 h5, .u10btn", function() {
             var a = $(this).parents("div.u10w3"),
                 b = $("div.u10active");
             a.toggleClass("u10active");
@@ -3188,7 +3191,7 @@ jQuery(document).ready(function ($) {
         window.frameElement && $(".u10 a").attr("target", "_top");
         $(".scl-icons a").text(" ");
         $(".u10w3 .u10btn").replaceWith('<a class="u10btn"></a>');
-        $(".u10w3").on("click keydown", ".u10btn", function (a) {
+        $(".u10w3").on("click keydown", ".u10btn", function(a) {
             a.preventDefault()
         });
         var b = $(".u10-links li:first-child").clone().addClass("last");
@@ -3196,7 +3199,7 @@ jQuery(document).ready(function ($) {
         $(".u10last").after(b);
         $(".u10last").after('<li class="u10break"></li>');
         a && getCountryData(a);
-        $("body #u10cmenu").on("click", function (a) {
+        $("body #u10cmenu").on("click", function(a) {
             $("body").removeClass("u10hide");
             if ($(window).width() < 770) {
                 if (!$(".u10modal").length) {
@@ -3221,7 +3224,7 @@ jQuery(document).ready(function ($) {
             }
             menuData = $(this)
         });
-        $("body").on("click", "a.u10ticon", function (a) {
+        $("body").on("click", "a.u10ticon", function(a) {
             a.preventDefault();
             a.stopImmediatePropagation()
         })
@@ -3230,7 +3233,7 @@ jQuery(document).ready(function ($) {
 
 function asyncrWait() {
     var a = $.Deferred();
-    setTimeout(function () {
+    setTimeout(function() {
         a.resolve("generating async wait")
     }, 0);
     return a.promise()
@@ -3245,7 +3248,7 @@ function loadGlobalVar() {
 function getCountryData(a) {
     var b = "u10clink",
         c = jQuery.Deferred();
-    c.promise().then(asyncrWait).then(oracleDataMenu.fetchMenuContent(a).then(function (a) {
+    c.promise().then(asyncrWait).then(oracleDataMenu.fetchMenuContent(a).then(function(a) {
         buildCountryMenu(a.replace(/<([^h\/>]*)h5/g, '<a class="u10clink"').replace(/<\/h5>/g, "</a>").replace(/u02/g, "u10"))
     }));
     c.resolve()
@@ -3267,27 +3270,27 @@ function buildCountryMenu(a) {
         n = "u10menupop",
         o = "selected-region",
         p = !1,
-        q = function (a) {
+        q = function(a) {
             var b = $("body").find(oracleDataMenu.classSelector([d, [h, e]])),
                 f = $("body").find(oracleDataMenu.classSelector("u10menupop")).width() > 340 || !!a;
             clearTimeout($("body").find(oracleDataMenu.classSelector(c)).data("cmenuTimeout"));
             return $("body").find(oracleDataMenu.classSelector([d, e], '[style*="height"]')).css("height", "") && f && b.equalHeight(!0) || 1
         },
-        r = function () {
+        r = function() {
             var a = $(oracleDataMenu.classSelector("u10menupop", " a:not(.u10clink):not(.u10blink)")),
                 b = $('meta[name="siteid"]').attr("content"),
                 c = "data-currentcc";
-            return void 0 === PDITLocaleMap || null == b || PDITLocaleMap.init().then(function (f) {
-                var g = a.attr(c, function () {
+            return void 0 === PDITLocaleMap || null == b || PDITLocaleMap.init().then(function(f) {
+                var g = a.attr(c, function() {
                     var a = 0;
                     a += +(this.textContent === f[b].englishcountryname);
                     a += +(this.textContent === f[b].countryname);
                     a += +(0 === this.textContent.localeCompare(f[b].countryname));
                     a += +new RegExp("/" + b + "/", "i").test(this.href);
                     return a
-                }).filter(function () {
+                }).filter(function() {
                     return +$(this).attr(c) > 0
-                }).sort(function (a, b) {
+                }).sort(function(a, b) {
                     var d = +$(a).attr(c),
                         e = +$(b).attr(c);
                     return d > e ? -1 : d < e ? 1 : 0
@@ -3295,7 +3298,7 @@ function buildCountryMenu(a) {
                 return a.removeAttr(c) && g.length && $(oracleDataMenu.classSelector("u10menupop")).find(oracleDataMenu.classSelector([h, j, i])).removeClass(oracleDataMenu.classList([h, j, i])) && g.addClass(i).closest(oracleDataMenu.classSelector([e])).addClass(o).closest(oracleDataMenu.classSelector([d], "> li")).addClass(oracleDataMenu.classList([h, j])) && q(!0)
             })
         };
-    addAriaTree = function () {
+    addAriaTree = function() {
         var a = $(".u10").find(oracleDataMenu.classSelector(b)).find("span");
         $(".u10").find(oracleDataMenu.classSelector(c)).attr("role", "tree");
         $(".u10").find(oracleDataMenu.classSelector(g)).attr({
@@ -3322,18 +3325,18 @@ function buildCountryMenu(a) {
         x = $("#" + w, a);
         x.find(oracleDataMenu.classSelector(c, " > ul")).prepend(oracleDataMenu.createElement("li", "u10pttl-li").html(oracleDataMenu.createElement("h5", "u10pttl").text(u.find(oracleDataMenu.classSelector(f)).text())));
         x.find(oracleDataMenu.classSelector(h)).addClass(j);
-        u.append(!u.find(oracleDataMenu.classSelector(k)).length && v).find(oracleDataMenu.classSelector("u10menupop")).html(x).end().find("h5.u10pttl, .u10ticon > span").text(function (a, b) {
+        u.append(!u.find(oracleDataMenu.classSelector(k)).length && v).find(oracleDataMenu.classSelector("u10menupop")).html(x).end().find("h5.u10pttl, .u10ticon > span").text(function(a, b) {
             return x.data("toollabel") || b
         });
         u.find(oracleDataMenu.classSelector("u10menupop", " .u10cmenu-simple")).length ? u.find(oracleDataMenu.classSelector("u10menupop")).addClass("u10menupop-simple") : u.find(oracleDataMenu.classSelector("u10menupop")).removeClass("u10menupop-simple");
-        u.find(oracleDataMenu.classSelector(b)).attr("href", "#" + w).addClass(function () {
+        u.find(oracleDataMenu.classSelector(b)).attr("href", "#" + w).addClass(function() {
             return l
         });
         q(!0);
         r();
         $(".u10currentcc").closest(".u10cmenu-l2").addClass("selected-region");
         addAriaTree();
-        $("body").on("click", ".u10.u10v6 .u10clink", function (a) {
+        $("body").on("click", ".u10.u10v6 .u10clink", function(a) {
             var b = $(this);
             $(".u10").find(oracleDataMenu.classSelector(h)).removeClass(h);
             b.closest("li").addClass(h);
@@ -3342,18 +3345,18 @@ function buildCountryMenu(a) {
             $(".u10cmenu-l2").removeClass("selected-region");
             b.next(".u10cmenu-l2").addClass("selected-region")
         });
-        $("body").on("touchend click", ".u10modal .u10clink", function (a) {
+        $("body").on("touchend click", ".u10modal .u10clink", function(a) {
             a.stopPropagation();
             a.preventDefault();
             var b = $(this);
-            $(".u10modal").find(oracleDataMenu.classSelector(g)).not(b).each(function () {
+            $(".u10modal").find(oracleDataMenu.classSelector(g)).not(b).each(function() {
                 $(this).closest("li").removeClass(h)
             });
             b.closest("li").toggleClass(h);
             $(".u10modal .u10cmenu-l2").removeClass("selected-region");
             b.next(".u10modal .u10cmenu-l2").addClass("selected-region")
         });
-        $("body").on("click", ".u10modal .closeModal", function (a) {
+        $("body").on("click", ".u10modal .closeModal", function(a) {
             a.preventDefault();
             $("body").removeClass("noScroll");
             menuData = $(".u10modal #u10cmenu").clone(!0).addClass("u10opened");
@@ -3361,16 +3364,16 @@ function buildCountryMenu(a) {
             $(".u10.u10v6 #u10cmenu").removeClass("u10opened")
         })
     }
-    jQuery(function () {
+    jQuery(function() {
         var a;
-        $(window).on("resize", function () {
+        $(window).on("resize", function() {
             clearTimeout(a);
-            a = setTimeout(function () {
+            a = setTimeout(function() {
                 $(window).trigger("resize-end")
             }, 200)
         })
     });
-    jQuery(window).on("resize-end", function () {
+    jQuery(window).on("resize-end", function() {
         if ($(window).width() < 770) {
             if ($("#u10cmenu").hasClass("u10opened") && !$(".u10modal").length) {
                 var a = $("#u10cmenu").clone(!0);
@@ -3396,13 +3399,13 @@ function buildCountryMenu(a) {
         }
     })
 }
-jQuery(document).on("mouseup touchend", function (a) {
+jQuery(document).on("mouseup touchend", function(a) {
     jQuery(window).width() > 770 && 0 === jQuery(a.target).closest(".u10.u10v6 #u10cmenu").length && jQuery("body").addClass("u10hide")
 });
 var menuData;
 
 /*! U24 - ACS */
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     var a = document.location.href + "&",
         b = a.indexOf("activecountry&") > -1;
     a = a.replace(/\&$/, "");
@@ -3437,9 +3440,9 @@ jQuery(document).ready(function ($) {
             k = "," + k + ","
         }
         if ("" == k) return exitACS("no-altpages");
-        var n = function () {
+        var n = function() {
             var b = a.split("://")[1].replace(/^[^\/]+/, "");
-            jQuery.each(m.split(","), function () {
+            jQuery.each(m.split(","), function() {
                 if (0 == b.indexOf("/" + this + "/")) {
                     b = b.replace(new RegExp("^/" + this + "/", "g"), "/");
                     return !1
@@ -3456,10 +3459,10 @@ jQuery(document).ready(function ($) {
                     dataType: "json",
                     global: !1,
                     async: !1,
-                    success: function (a) {
+                    success: function(a) {
                         return a
                     },
-                    error: function () {
+                    error: function() {
                         return !1
                     }
                 }).responseText;
@@ -3492,16 +3495,16 @@ jQuery(document).ready(function ($) {
                 crossDomain: !0,
                 cache: !0,
                 contentType: "text/plain; charset=UTF-8",
-                success: function (a) {
+                success: function(a) {
                     s = a;
-                    $.each(a, function (a, b) {
+                    $.each(a, function(a, b) {
                         r[b.siteid] = [b.countrycode, b.countryname, b.englishcountryname];
                         b.countrycode.toLowerCase() == d && (e = b.siteid)
                     });
                     e = "default" == e ? "us" : e;
                     k.indexOf("," + e + ",") < 0 && (q = "no-localpage-available")
                 }
-            }).fail(function (a) {
+            }).fail(function(a) {
                 q = "pditlocalemap-failed"
             })
         }
@@ -3530,10 +3533,10 @@ jQuery(document).ready(function ($) {
                 cache: !0,
                 contentType: "text/plain; charset=UTF-8",
                 async: !1
-            }).done(function (a) {
+            }).done(function(a) {
                 var b = a;
-                $.each(b.languages, function (a, b) {
-                    $.each(b, function (a, b) {
+                $.each(b.languages, function(a, b) {
+                    $.each(b, function(a, b) {
                         if (f == b[0].site_id && i == a) {
                             v = b[0].visit;
                             w = b[0].seepage;
@@ -3550,8 +3553,8 @@ jQuery(document).ready(function ($) {
                         }
                     })
                 });
-                "" == v && $.each(b.languages, function (a, b) {
-                    $.each(b, function (a, b) {
+                "" == v && $.each(b.languages, function(a, b) {
+                    $.each(b, function(a, b) {
                         if ("en" == a) {
                             v = b[0].visit;
                             w = b[0].seepage;
@@ -3561,7 +3564,7 @@ jQuery(document).ready(function ($) {
                         }
                     })
                 })
-            }).fail(function () {
+            }).fail(function() {
                 u = "translation-json-failed"
             })
         }
@@ -3592,7 +3595,7 @@ jQuery(document).ready(function ($) {
         $(".u24 .u24nothanks").prepend('<a data-lbl="u24nothanks" href="#close" class="u24close thankstrans ' + B + '">' + x + "</a>");
         $(".u24w6").prepend('<span class="u24w6Title">' + z + "</span>");
         var C = 0;
-        $.each(s, function (a, b) {
+        $.each(s, function(a, b) {
             if (r[b.siteid][0].toLowerCase() != d || "default" == b.siteid);
             else {
                 C++;
@@ -3622,12 +3625,17 @@ jQuery(document).ready(function ($) {
                 }
             }
         });
-        var D = [["americas", "Americas", ["ar", "bz", "bo", "br", "ca-en", "ca-fr", "cl", "co", "cr", "ec", "gt", "hn", "lad", "mx", "ni", "pa", "py", "pe", "pr", "us", "uy", "ve"]], ["asia", "Asia", ["apac", "asiasouth", "au", "bd", "bt", "bn", "kh", "cn", "hk", "in", "id", "jp", "kr", "la", "my", "mv", "mn", "np", "nz", "pk", "ph", "sg", "lk", "tw", "th", "vn"]], ["europe", "Europe", ["emea", "at", "be", "be-fr", "be-nl", "ba", "bg", "hr", "cy", "cz", "dk", "ee", "fi", "fr", "de", "gr", "hu", "ie", "it", "lv", "lt", "lu", "mt", "md", "me", "nl", "no", "pl", "pt", "ro", "ru", "rs", "sk", "si", "es", "se", "ch-fr", "ch-de", "tr", "ua", "uk"]], ["middleeast", "Middle East and Africa", ["africa", "dz", "bh-ar", "eg", "eg-ar", "gh", "il-en", "il", "iq", "iq-ar", "jo", "jo-ar", "ke", "kw", "kw-ar", "lb", "lb-ar", "middleeast", "middleeast-ar", "ma", "ng", "om", "om-ar", "qa", "qa-ar", "sa", "sa-ar", "sn", "za", "ae", "ae-ar", "ye", "ye-ar"]]];
-        $.each(D, function (a, b) {
+        var D = [
+            ["americas", "Americas", ["ar", "bz", "bo", "br", "ca-en", "ca-fr", "cl", "co", "cr", "ec", "gt", "hn", "lad", "mx", "ni", "pa", "py", "pe", "pr", "us", "uy", "ve"]],
+            ["asia", "Asia", ["apac", "asiasouth", "au", "bd", "bt", "bn", "kh", "cn", "hk", "in", "id", "jp", "kr", "la", "my", "mv", "mn", "np", "nz", "pk", "ph", "sg", "lk", "tw", "th", "vn"]],
+            ["europe", "Europe", ["emea", "at", "be", "be-fr", "be-nl", "ba", "bg", "hr", "cy", "cz", "dk", "ee", "fi", "fr", "de", "gr", "hu", "ie", "it", "lv", "lt", "lu", "mt", "md", "me", "nl", "no", "pl", "pt", "ro", "ru", "rs", "sk", "si", "es", "se", "ch-fr", "ch-de", "tr", "ua", "uk"]],
+            ["middleeast", "Middle East and Africa", ["africa", "dz", "bh-ar", "eg", "eg-ar", "gh", "il-en", "il", "iq", "iq-ar", "jo", "jo-ar", "ke", "kw", "kw-ar", "lb", "lb-ar", "middleeast", "middleeast-ar", "ma", "ng", "om", "om-ar", "qa", "qa-ar", "sa", "sa-ar", "sn", "za", "ae", "ae-ar", "ye", "ye-ar"]]
+        ];
+        $.each(D, function(a, b) {
             var c = "",
                 d = "u24-l2visible",
                 e = "u24regioncr";
-            $.each(b[2], function (a, b) {
+            $.each(b[2], function(a, b) {
                 if (k.indexOf("," + b + ",") > -1) {
                     var d = b.indexOf("-") > -1 ? getNameWithLang(b) : r[b][1];
                     c += d || "us" !== b ? '<li><a href="/' + b + n + '">' + d + "</a></li>\n" : '<li><a href="' + n + '">United States</a></li>\n'
@@ -3646,12 +3654,12 @@ jQuery(document).ready(function ($) {
             "ca" == a.split("-")[0] && "en" == a.split("-")[1] ? lang = " - English" : "ca" == a.split("-")[0] && "fr" == a.split("-")[1] ? lang = " - FranÃ§ais" : lang = "";
             return r[a][1] + lang
         }
-        $(function ($) {
+        $(function($) {
             var a = 2,
                 b = $(".u24-l2"),
                 c = "li",
                 d = "u24-l2sub";
-            b.each(function () {
+            b.each(function() {
                 for (var a = new Array, b = $(this).find("li"), c = Math.floor(b.length / 2), e = b.length - 2 * c, f = 0; f < 2; f++) a[f] = f < e ? c + 1 : c;
                 for (var f = 0; f < 2; f++) {
                     $(this).append($("<ul ></ul>").addClass(d));
@@ -3662,72 +3670,72 @@ jQuery(document).ready(function ($) {
                 }
             })
         });
-        setTimeout(function () {
+        setTimeout(function() {
             $("body").addClass("u24show");
             "undefined" != typeof s_setAccount && navTrack(s_setAccount()[1], s_setAccount()[2], "active-country-select", "acs-loaded")
         }, 2e3);
-        $(document).on("click", "a.u24region", function (a) {
+        $(document).on("click", "a.u24region", function(a) {
             $(".u24region").removeClass("u24regioncr");
             $(".u24-l2visible").removeClass("u24-l2visible");
             $(this).addClass("u24regioncr").next("ul").addClass("u24-l2visible");
             return !1
         });
-        $(document).on("mouseenter", ".u24addlang", function () {
+        $(document).on("mouseenter", ".u24addlang", function() {
             $(".u24w3").addClass("u24w3open")
         });
-        $(document).on("mouseleave", ".u24addlang", function () {
+        $(document).on("mouseleave", ".u24addlang", function() {
             $(".u24w3").removeClass("u24w3open")
         });
-        $(document).on("click touchstart", ".u24w2 .u24addlang a.u24w3open", function () {
+        $(document).on("click touchstart", ".u24w2 .u24addlang a.u24w3open", function() {
             $(".u24w3").addClass("u24w3open");
             return !1
         });
-        $(document).on("focus", ".u24w2 .u24addlang a", function () {
+        $(document).on("focus", ".u24w2 .u24addlang a", function() {
             $(".u24w3").addClass("u24w3open")
         });
-        $(document).on("blur", ".u24w2 .u24addlang a", function () {
+        $(document).on("blur", ".u24w2 .u24addlang a", function() {
             $(".u24w3").removeClass("u24w3open")
         });
-        $(document).on("click touchstart", ".l2Title", function () {
+        $(document).on("click touchstart", ".l2Title", function() {
             $(".u24-l2visible").removeClass("u24-l2visible");
             $(".u24region").removeClass("u24regioncr");
             return !1
         });
-        $(document).on("mouseenter", ".u24w4wrap", function () {
+        $(document).on("mouseenter", ".u24w4wrap", function() {
             $(".u24w5").addClass("u24w5open");
             $(".u24w4").addClass("u24w4open")
         });
-        $(document).on("mouseleave", ".u24w5.u24w5open,.u24w4wrap", function () {
+        $(document).on("mouseleave", ".u24w5.u24w5open,.u24w4wrap", function() {
             $(".u24w5").removeClass("u24w5open");
             $(".u24w4").removeClass("u24w4open")
         });
-        $(document).on("click touchstart", ".u24w4 a.u24w3open", function () {
+        $(document).on("click touchstart", ".u24w4 a.u24w3open", function() {
             $(".u24w5").addClass("u24w5open");
             $(".u24w4").addClass("u24w4open");
             return !1
         });
-        $(document).on("focus", ".u24w4 a", function () {
+        $(document).on("focus", ".u24w4 a", function() {
             $(".u24w5").addClass("u24w5open");
             $(".u24w5").addClass("u24w4open")
         });
-        $(document).keyup(function (a) {
+        $(document).keyup(function(a) {
             if (27 === a.keyCode && $("body").hasClass("u24show")) {
                 $(".u24closebtn").click();
                 a.preventDefault()
             }
         });
-        $(document).on("click", ".u24close", function (a) {
+        $(document).on("click", ".u24close", function(a) {
             $("body").removeClass("u24show");
             createCookie("ORA_COUNTRYSELECT", "true", 1);
             a.preventDefault()
         });
-        $(document).on("click", ".u24addlang a.u24btnlnk", function (a) {
+        $(document).on("click", ".u24addlang a.u24btnlnk", function(a) {
             a.preventDefault()
         });
-        $(document).on("click", "a.u24btnlnk", function (a) {
+        $(document).on("click", "a.u24btnlnk", function(a) {
             $(this).closest(".u24addlang")[0] || createCookie("ORA_COUNTRYSELECT", "true", 1)
         });
-        $(document).on("click", ".u24w3 a,ul.u24-l2sub a", function (a) {
+        $(document).on("click", ".u24w3 a,ul.u24-l2sub a", function(a) {
             createCookie("ORA_COUNTRYSELECT", "true", 1)
         })
     }
@@ -3756,54 +3764,54 @@ function eraseCookie(a) {
 }
 
 /*! RH02 */
-$(document).ready(function () {
+$(document).ready(function() {
     "use strict";
     var a = $(".rh02"),
         b = $(".rh02").next(),
         c = a.is("[data-backlbl]") ? a.attr("data-backlbl") : "Back";
     a.find(".rh02w3").append('<a class="rh02back" href="#back">' + c + "</a>");
     a.find(".rh02w1").append('<a class="rh02blurout" href="#close"></a>');
-    a.find(".rh02panel").each(function () {
-        $(this).find(".rh02w2").first().each(function () {
+    a.find(".rh02panel").each(function() {
+        $(this).find(".rh02w2").first().each(function() {
             $(this).find("button.rh02-pcontent")[0] && $(this).addClass("rh02defpanel")
         })
     });
-    a.find(".rh02carousel").each(function () {
+    a.find(".rh02carousel").each(function() {
         this.swiping = !1;
         this.moved = !1;
         var b = 0,
             c = $('<ul class="rh02nav rh02navloading"></ul>'),
             d = $(this);
-        d.find(".rh02w2").each(function () {
+        d.find(".rh02w2").each(function() {
             b++;
             $(this).addClass("rh02-slide" + b);
             c.append('<li><a href="#' + b + '" title="View Slide ' + b + '"><b>View Slide ' + b + "</b></a></li>")
         });
         d.append(c);
-        setTimeout(function () {
+        setTimeout(function() {
             a.find(".rh02nav").removeClass("rh02navloading")
         }, 600);
         d.find(".rh02w2").first().addClass("rh02current");
         d.find(".rh02nav li:first-of-type a").addClass("rh02cnav");
         d.addClass("rh02carouselinit");
-        d.is("[data-auto]") && setTimeout(function () {
+        d.is("[data-auto]") && setTimeout(function() {
             rh02automove(d, d.attr("data-auto"))
         }, 1e3 * d.attr("data-auto"))
     });
-    a.find(".rh02w2[data-bgimg]").each(function () {
+    a.find(".rh02w2[data-bgimg]").each(function() {
         $(this).bgimg()
     });
-    $(document).on("swipeleft", ".rh02carousel", function (a) {
+    $(document).on("swipeleft", ".rh02carousel", function(a) {
         this.swiping = !0;
         this.moved = !0;
         rh02move(!1, $(this), 1)
     });
-    $(document).on("swiperight", ".rh02carousel", function (a) {
+    $(document).on("swiperight", ".rh02carousel", function(a) {
         this.swiping = !0;
         this.moved = !0;
         rh02move(!1, $(this), -1)
     });
-    $(document).on("click", ".rh02nav a", function (a) {
+    $(document).on("click", ".rh02nav a", function(a) {
         var b = parseInt($(this).closest(".rh02nav").find(".rh02cnav").first()[0].href.split("#")[1]),
             c = parseInt(this.href.split("#")[1]),
             d = c < b ? -1 : 1;
@@ -3816,18 +3824,18 @@ $(document).ready(function () {
 
     function rh02automove(a, b) {
         a.is(".rh02pause") || a.is(".rh02open") || a[0].moved ? a[0].moved = !1 : rh02move(!1, a, 1);
-        setTimeout(function () {
+        setTimeout(function() {
             rh02automove(a, b)
         }, 1e3 * b)
     }
 
     function rh02move(a, b, c) {
-        b[0].swiping && setTimeout(function () {
+        b[0].swiping && setTimeout(function() {
             b[0].swiping = !1
         }, 600);
         if (!$(".rh02menuopen")[0]) {
             c < 0 ? b.addClass("rh02carouselback") : b.removeClass("rh02carouselback");
-            setTimeout(function () {
+            setTimeout(function() {
                 if (!a) {
                     a = parseInt(b.find(".rh02cnav")[0].href.split("#")[1]) + c;
                     a > b.find(".rh02w2").length ? a = 1 : a < 1 && (a = b.find(".rh02w2").length)
@@ -3839,7 +3847,7 @@ $(document).ready(function () {
                     a--;
                     b.find(".rh02cnav").removeClass("rh02cnav");
                     $(b.find(".rh02nav a")[a]).addClass("rh02cnav");
-                    setTimeout(function () {
+                    setTimeout(function() {
                         b.find(".rh02out").removeClass("rh02out");
                         b.find(".rh02outdef").removeClass("rh02outdef");
                         b.removeClass("rh02moving");
@@ -3849,39 +3857,39 @@ $(document).ready(function () {
             }, 10)
         }
     }
-    $(document).on("mouseenter click", "button.rh02-pcontent", function () {
+    $(document).on("mouseenter click", "button.rh02-pcontent", function() {
         var a = $(this);
         if (!rh02ismobile() && !a.closest(".rh02panel")[0].swiping) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(".rh02open").removeClass("rh02open");
             $("body").addClass("rh02menuopen");
             a.closest(".rh02panel").addClass("rh02open").addClass("rh02opening");
-            setTimeout(function () {
+            setTimeout(function() {
                 a.closest(".rh02panel").removeClass("rh02opening")
             }, 600)
         }
     });
-    $(document).on("focus", ".rh02-pcontent", function () {
+    $(document).on("focus", ".rh02-pcontent", function() {
         if (!rh02ismobile() && !$(this).closest(".rh02open")[0]) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(".rh02open").removeClass("rh02open")
         }
     });
-    $(document).on("mouseleave", ".rh02panel", function () {
+    $(document).on("mouseleave", ".rh02panel", function() {
         if (!rh02ismobile()) {
             $(this)[0].moved = !0;
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(this).removeClass("rh02open")
         }
     });
-    $(document).on("focus", ".rh02blurout", function () {
+    $(document).on("focus", ".rh02blurout", function() {
         if ($(".rh02open")[0]) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(".rh02open").removeClass("rh02open");
             b.find("a").first().focus()
         }
     });
-    $(".rh02-pcontent").keypress(function (a) {
+    $(".rh02-pcontent").keypress(function(a) {
         if (13 == a.which && !$(this).closest(".rh02open")[0]) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(".rh02open").removeClass("rh02open");
@@ -3890,13 +3898,13 @@ $(document).ready(function () {
             a.preventDefault()
         }
     });
-    $(document).on("mouseenter touchstart", ".rh02panel", function () {
+    $(document).on("mouseenter touchstart", ".rh02panel", function() {
         $(this).addClass("rh02pause")
     });
-    $(document).on("mouseleave touchend", ".rh02panel", function () {
+    $(document).on("mouseleave touchend", ".rh02panel", function() {
         $(this).removeClass("rh02pause")
     });
-    $(document).on("click", "button.rh02-pcontent", function () {
+    $(document).on("click", "button.rh02-pcontent", function() {
         if (rh02ismobile() && !$(this).closest(".rh02open")[0] && !$(this).closest(".rh02panel")[0].swiping) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(".rh02open").removeClass("rh02open");
@@ -3904,7 +3912,7 @@ $(document).ready(function () {
             $(this).closest(".rh02panel").addClass("rh02open")
         }
     });
-    $(document).on("click", ".rh02back", function (a) {
+    $(document).on("click", ".rh02back", function(a) {
         if (rh02ismobile()) {
             $(".rh02menuopen").removeClass("rh02menuopen");
             $(this).closest(".rh02panel").removeClass("rh02open");
@@ -3916,7 +3924,7 @@ $(document).ready(function () {
         return 0 == parseInt(a.css("margin-top"))
     }
 });
-$(document).on("click", "a.sharelink", function (a) {
+$(document).on("click", "a.sharelink", function(a) {
     a.preventDefault();
     var b = window.location.href;
     if ($(this).is("[data-esubject]"))
@@ -3941,12 +3949,12 @@ $(document).on("click", "a.sharelink", function (a) {
         window.open("https://twitter.com/share?url=" + b + j + k, "twitter-share", "height=550,width=420")
     } else "linkedin" == $(this).attr("data-sharetype") ? window.open("http://www.linkedin.com/shareArticle?url=" + b, "linkedin-share", "height=550,width=420") : "googleplus" == $(this).attr("data-sharetype") ? window.open("https://plus.google.com/share?url=" + b, "googleplus-share", "height=620,width=500") : "weibo" == $(this).attr("data-sharetype") ? window.open("http://service.weibo.com/share/share.php?url=" + b, "weibo-share", "height=620,width=900") : "email" == $(this).attr("data-sharetype") && $(this).is("[data-esubject]") && $(this).is("[data-ebody]") ? location.assign("mailto:?subject=" + d + "&body=" + e + "%0A%0A" + b, "email-share") : "email" == $(this).attr("data-sharetype") && $(this).is("[data-ebody]") ? location.assign("mailto:?&body=" + e + "%0A%0A" + b, "email-share") : "email" == $(this).attr("data-sharetype") && $(this).is("[data-esubject]") ? location.assign("mailto:?subject=" + d + "&body=" + b, "email-share") : "email" == $(this).attr("data-sharetype") && location.assign("mailto:?body=" + b, "email-share")
 });
-$(document).on("click", "a.sharewidget", function (a) {
+$(document).on("click", "a.sharewidget", function(a) {
     a.preventDefault();
     if ($(".shareopen")[0]) {
         $(".shareopen").removeClass("shareopen");
         $(".sharewidgetw2").addClass("shareoc");
-        setTimeout(function () {
+        setTimeout(function() {
             $(".shareoc").remove()
         }, 400)
     }
@@ -3973,26 +3981,26 @@ $(document).on("click", "a.sharewidget", function (a) {
         $(this).hasClass("topshare") && $(this).closest(".cmps-share,div.sharewidget,span.sharewidgetw1").addClass("topshare");
         ($(this).closest(".cmps-bttns")[0] || $(this).closest("div.sharewidget")[0] || $(this).closest("span.sharewidgetw1")[0]) && $(this).closest("div").addClass("shareopen");
         b.after('<div class="sharewidgetw2 shareoc">' + f + "<i></i></div>");
-        setTimeout(function () {
+        setTimeout(function() {
             b.next(".shareoc").removeClass("shareoc")
         }, 1)
     }
 });
-$(document).on("mousedown", function (a) {
+$(document).on("mousedown", function(a) {
     if (!$(a.target).closest(".sharewidgetw2")[0] && !$(a.target).closest(".sharewidget")[0] && $(".shareopen")[0]) {
         $(".shareopen").removeClass("shareopen");
         $(".sharewidgetw2").addClass("shareoc");
-        setTimeout(function () {
+        setTimeout(function() {
             $(".shareoc").remove()
         }, 400)
     }
 });
-$(document).on("click", "a.qrcode", function (a) {
+$(document).on("click", "a.qrcode", function(a) {
     a.preventDefault();
     if ($(".qropen")[0]) {
         $(".qropen").removeClass("qropen");
         $(".qrcodew2").addClass("qroc");
-        setTimeout(function () {
+        setTimeout(function() {
             $(".qroc").remove()
         }, 400)
     }
@@ -4003,7 +4011,7 @@ $(document).on("click", "a.qrcode", function (a) {
         $(this).closest(".cmps-bttns")[0] || $(this).closest("div.qrcode")[0] || $(this).closest("span.qrcodew1")[0] || $(this).wrapAll('<span class="qrcodew1"></span>');
         ($(this).closest(".cmps-bttns")[0] || $(this).closest("div.qrcode")[0] || $(this).closest("span.qrcodew1")[0]) && $(this).closest("div").addClass("qropen");
         b.after('<div class="qrcodew2 qroc"><img class="" src="' + c + '"></div>');
-        setTimeout(function () {
+        setTimeout(function() {
             b.next(".qroc").removeClass("qroc")
         }, 1);
         d.left < 26 && b.next(".qroc").css({
@@ -4013,18 +4021,18 @@ $(document).on("click", "a.qrcode", function (a) {
     }
     return !1
 });
-$(document).on("mousedown", function (a) {
+$(document).on("mousedown", function(a) {
     if (!$(a.target).closest(".qrcodew2")[0] && !$(a.target).closest(".qrcode")[0] && $(".qropen")[0]) {
         $(".qropen").removeClass("qropen");
         $(".qrcodew2").addClass("qroc");
-        setTimeout(function () {
+        setTimeout(function() {
             $(".qroc").remove()
         }, 400)
     }
 });
 
 /*! W11 - LIGHTBOX */
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     "use strict";
     var a = ['a[rel^="lightBox"]', 'a[rel^="LightBox"]', 'a[rel^="lightbox"]', 'a[rel^="Lightbox"]', 'a[rel^="mbox"]', 'a[class^="mbox-simple"]', "[data-lightbox]"],
         b = "",
@@ -4084,11 +4092,11 @@ jQuery(document).ready(function ($) {
                     type: "GET",
                     url: k,
                     dataType: "html text"
-                }).done(function (a) {
+                }).done(function(a) {
                     b = $(a).find(u)[0] || $(a).find("body");
                     k && (j[k] = b);
                     loadExternalContent()
-                }).fail(function (a) {});
+                }).fail(function(a) {});
                 break;
             case "iframe":
                 d = !0;
@@ -4143,14 +4151,14 @@ jQuery(document).ready(function ($) {
                 "data-height": 800,
                 "data-theme": "pathfactory"
             }).appendTo("body") : $("#" + a.lightbox);
-        return a.lightbox && b.length && b.attr("href", function () {
+        return a.lightbox && b.length && b.attr("href", function() {
             var b = a.PF_QS;
             return b && delete a.PF_QS && (a["lb-mode"] = "overlay") && "https://explore.oracle.com/c/" + b + objToQueryParams(a)
         }).trigger("click")
     }
 
     function getUrlParams() {
-        return i.search.slice(1).split("&").reduce(function (a, b) {
+        return i.search.slice(1).split("&").reduce(function(a, b) {
             var c = b.split("=");
             c[0] && (a[c[0]] = !c[1] || c[1]);
             return a
@@ -4158,7 +4166,7 @@ jQuery(document).ready(function ($) {
     }
 
     function objToQueryParams(a) {
-        return Object.keys(a).reduce(function (b, c) {
+        return Object.keys(a).reduce(function(b, c) {
             b += b.length > 1 ? "&" : "";
             b += [c, a[c]].join("=");
             return b
@@ -4179,7 +4187,7 @@ jQuery(document).ready(function ($) {
         u = b.match(/#(.*?)(?=\?|$)/gi);
         e = /(gif|jpe?g|png|svg)$/i.test(b);
         j = /^data:/.test(b);
-        u && (u = u.filter(function (a) {
+        u && (u = u.filter(function(a) {
             return /^#[a-z0-9\-_]+$/i.test(a)
         }).shift());
         f && mapQueryToData(f, a);
@@ -4194,8 +4202,8 @@ jQuery(document).ready(function ($) {
     }
 
     function mapQueryToData(a, b) {
-        a.forEach(function (a) {
-            a.split("&").forEach(function (a) {
+        a.forEach(function(a) {
+            a.split("&").forEach(function(a) {
                 var c = a.replace(/(\?|amp;)/, "").split("="),
                     d = c[0],
                     e = c[1];
@@ -4211,7 +4219,7 @@ jQuery(document).ready(function ($) {
             $("> .w11", g).removeClass("w11fadeout");
             $("> .w11 .w11close", g).show()
         } else $(g).append(b);
-        if (c || d || e || f) setTimeout(function () {
+        if (c || d || e || f) setTimeout(function() {
             $("> .w11 .w11w3", g).addClass("loading")
         }, 0);
         else {
@@ -4237,7 +4245,7 @@ jQuery(document).ready(function ($) {
                 setTimeout(lightboxFadeIn, 50)
             }
             f && loadGallery()
-        } else setTimeout(function () {
+        } else setTimeout(function() {
             loadExternalContent(a)
         }, 50)
     }
@@ -4271,7 +4279,7 @@ jQuery(document).ready(function ($) {
                 }
                 b[0].setAttribute("scrolling", "no");
                 $(window).on("resize", onWindowResized);
-                f.on("fullscreenchange mozfullscreenchange webkitfullscreenchange msfullscreenchange", function () {
+                f.on("fullscreenchange mozfullscreenchange webkitfullscreenchange msfullscreenchange", function() {
                     e[0].style.setProperty("--iframeWidth", "100%")
                 });
                 if (null === r && window.MutationObserver) {
@@ -4307,7 +4315,7 @@ jQuery(document).ready(function ($) {
         var b = this;
         !!$(a.target).hasClass("w11closeexit") || a.preventDefault();
         b.addClass("w11fadeout");
-        l = setTimeout(function () {
+        l = setTimeout(function() {
             b.trigger("close.lightbox").remove();
             $(g).removeClass("lightbox-noscroll")
         }, "light" === n ? 500 : 800);
@@ -4320,14 +4328,14 @@ jQuery(document).ready(function ($) {
     function onWindowResized(a) {
         var b = a;
         clearTimeout(k);
-        k = setTimeout(function () {
+        k = setTimeout(function() {
             $(window).off("resize", onWindowResized);
             return $("> .w11", g).length && onExternalContentLoaded(b)
         }, 500)
     }
 
     function registerObserver(a) {
-        r = new MutationObserver(function (a) {
+        r = new MutationObserver(function(a) {
             clearTimeout(m);
             m = setTimeout(onExternalContentLoaded, 100)
         });
@@ -4366,26 +4374,26 @@ jQuery(document).ready(function ($) {
 });
 
 /*! GENERIC-LIGHTBOX-GALLERY */
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
     "use strict";
     if (!$(".lightbox-gallery").length) return !1;
     var a = $('<div class="slick-nav"><a class="slick-prev slick-arrow" data-lbl="prev-slide" aria-label="Previous" aria-disabled="false">Previous</a><div class="slick-pagination"></div><a class="slick-next slick-arrow" data-lbl="next-slide" aria-label="Next" aria-disabled="false">Next</a></div>');
-    $(".lightbox-gallery").each(function () {
+    $(".lightbox-gallery").each(function() {
         var b = $(this),
             c = $("body"),
             d = b.find('a[rel="lightbox"]'),
-            e = d.get().map(function (a) {
+            e = d.get().map(function(a) {
                 return a.href
             }),
             f = e.length,
             g = [];
         d.data("container", b);
-        b.on("open.lightbox", function (d, f) {
+        b.on("open.lightbox", function(d, f) {
             var g = e.indexOf(f.href);
             b.find(".w11w4").append(a).end().off("click.lightbox").on("click.lightbox", ".slick-arrow", onNavClicked);
             $(document).off("keydown.lightbox").on("keydown.lightbox", onKeydown);
             return c.addClass("lightbox-noscroll") && changeImage(0) && preloadImgs(f.href) && updateNav(g)
-        }).on("close.lightbox", function () {
+        }).on("close.lightbox", function() {
             return c.removeClass("lightbox-noscroll") && b.off("click.lightbox") && $(document).off("keydown.lightbox")
         });
 
@@ -4401,7 +4409,7 @@ jQuery(document).ready(function ($) {
             var c = b.find(".w11w6"),
                 d = c.find("img"),
                 f = e.indexOf(d.attr("src")) + a;
-            return null != e[f] && preloadImgs(e[f]) && d.removeClass("w11fadein") && c.css("backgroundImage", "url(" + d.attr("src") + ")") && d.attr("src", function () {
+            return null != e[f] && preloadImgs(e[f]) && d.removeClass("w11fadein") && c.css("backgroundImage", "url(" + d.attr("src") + ")") && d.attr("src", function() {
                 return e[f]
             }) && setTimeout(d.addClass.bind(d, "w11fadein"), 50) && updateNav(f)
         }
@@ -4409,7 +4417,7 @@ jQuery(document).ready(function ($) {
         function preloadImgs(a) {
             var b = e.indexOf(a);
             g.push(a);
-            return ![e[b - 1], e[b + 1]].forEach(function (a) {
+            return ![e[b - 1], e[b + 1]].forEach(function(a) {
                 return null != a && g.indexOf(a) < 0 && g.push(a) && ((new Image).src = a)
             })
         }

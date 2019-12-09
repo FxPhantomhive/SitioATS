@@ -6997,6 +6997,9 @@ b .u28back {
         min-height: 2.3rem;
         padding: 1rem 2rem 1rem;
     }
+    .navigation-is-open .u28b1 {
+        display: none;
+    }
     .u28nav {
         background-repeat: no-repeat;
         background-attachment: fixed;

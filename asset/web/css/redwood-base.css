@@ -7162,7 +7162,8 @@ b .u28back {
     }
     .u28home {
         background-size: 28px;
-        min-width: 44px
+        min-width: 44px;
+        display: none
     }
     .u28ham {
         background-size: 22px;
@@ -8124,7 +8125,7 @@ button.rh02-pcontent:hover {
     }
     .rh02menuopen .rh02w1 {
         height: 100vh;
-        overflow: hidden
+        overflow: hidde
     }
     .rh02w1:after {
         top: 33%;
@@ -8248,7 +8249,7 @@ button.rh02-pcontent:hover {
     }
     .rh02menuopen .f20w1>div,
     .rh02menuopen .f20w1>section:not(.rh02) {
-        display: none
+        /*  display: none */
     }
 }
 
@@ -8258,7 +8259,8 @@ button.rh02-pcontent:hover {
         display: none
     }
     .rh02-sub {
-        margin-bottom: 0
+        margin-bottom: 0;
+        text-align: center;
     }
     div.rh02-pcontent .rh02-sub {
         margin-bottom: 1.2em

@@ -74,6 +74,20 @@ h2.linea span {
     padding: 0 15px;
 }
 
+.footer-contact-info li {
+    font: normal 16px sans-serif;
+    margin-top: 30px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 13px;
+    margin: 0;
+}
+
+.footer-ats-centered .footer-contact-info a {
+    padding-bottom: 50px;
+    color: #ffffff;
+}
+
 
 /* Responsivo footer*/
 

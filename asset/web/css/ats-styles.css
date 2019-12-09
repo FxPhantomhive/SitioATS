@@ -401,12 +401,21 @@ main h1 {
     transition: visibility 0s 0s;
 }
 
-.navigation-is-open .rw-logo {
-    display: none
+.navigation-is-open .rw-logo,
+.u28s3 {
+    display: none;
+}
+
+.navigation-is-open .u28s3 {
+    display: none;
 }
 
 .navigation-is-open .u28w1 {
     background-color: rgba(25, 39, 78, 0.00);
+}
+
+.navigation-is-open .u28w1:after {
+    display: none;
 }
 
 .navigation-is-open .cd-nav .cd-navigation-wrapper {
